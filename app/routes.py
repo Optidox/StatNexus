@@ -9,20 +9,20 @@ def index():
 
 @app.route('/profile')
 def profile():
-    return "Hello, User!"
+    return render_template('profile.html')
 
 @app.route('/contact')
 def contact():
-    return "contact"
+    return render_template('contact.html')
 
 @app.route('/league')
 def league():
-    return "league"
+    return render_template('league.html')
 
 @app.route('/destiny')
 def destiny():
-    return "leagues"
+    return render_template('destiny.html')
 
 @app.route('/osu')
 def osu():
-    return "osu"
+    return render_template('osu.html')
