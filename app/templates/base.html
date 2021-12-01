@@ -40,10 +40,12 @@
             display:flex;
             flex-direction:column;
             justify-content:center;
+            transition: 0.2s;
         }
 
         #menuIcon:hover {
             background-color:rgb(38,40,43);
+            transition: 0.2s;
         }
         #hamburger {
             width: 18px;
@@ -53,6 +55,31 @@
             align-content:center;
             vertical-align:middle;
             border-radius:5px;
+        }
+
+        #sideButton {
+            display:flex;
+            height:50px;
+            width:70px;
+            justify-content:center;
+            align-items:center;
+            transition: 0.2s;
+        }
+
+        #sideButton:hover {
+            background-color:rgb(38,40,43);
+            transition: 0.2s;
+        }
+
+        .logo {
+            height:40px;
+        }
+
+        #siteLogo {
+            height:55px;
+            width:55px;
+            object-fit: cover;
+
         }
 
         h1 {
@@ -70,10 +97,16 @@
             <div id="hamburger"></div>
             <div id="hamburger"></div>
         </div>
-        <!-- <h1>Snow Warning</h1> -->
+        <!-- Need to add links, how do I do that with the routes? -->
     </div>
     <div class="sideMenu">
-        Hi
+        <div id="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
+        <div id="sideButton">2</div>
+        <div id="sideButton">3</div>
+        <div id="sideButton">4</div>
+        <div id="sideButton" style="position:absolute; bottom:20px;">
+            <img id="siteLogo" src="../static/images/logo-placeholder.png" /> 
+        </div>
     </div>
 
     {% block content %}{% endblock %}
