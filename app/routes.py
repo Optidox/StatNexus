@@ -5,7 +5,8 @@ from flask import render_template
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    user = {'username': 'iamauser'}
+    return render_template('index.html', user=user)
 
 @app.route('/profile')
 def profile():
