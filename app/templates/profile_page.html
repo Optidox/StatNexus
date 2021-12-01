@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .summary_card {
+                border: 1px solid;
+                border-color: #6B6E70;
+                /* height: 100px;
+                width: 400px; */
+                border-radius: 10px;
+                /* display: flex; */
+            }
+            .summary_card_image {
+                width: 80px;
+                height: 80px;
+                vertical-align: sub;
+            }
+            .summary_card_text_block {
+                vertical-align: text-top;
+                width: fit-content;
+                block-size: fit-content;
+                display:inline; 
+                white-space:pre-line;
+            }
+            .summary_card_title {
+                display:inline; 
+                white-space:pre-line;
+                color: white;
+                font-weight: bold;
+                font-size: x-large;
+            }
+            .summary_card_stat_name {
+                display:inline; 
+                white-space:pre-line;
+                color: white;
+                font-weight: bold;
+                font-size: large;
+            }
+            .summary_card_stat_info {
+                display:inline; 
+                white-space:pre-line;
+                color: white;
+                font-size: large;
+            }
+            /* Grid rules */
+            .item1 { grid-area: ul; }
+            .item2 { grid-area: menu; }
+            .item3 { grid-area: main; }
+            .item4 { grid-area: right; }
+            .grid-container {
+                display: grid;
+                grid-template-areas:
+                    'tl tr'
+                    'll lr';
+                grid-gap: 10px;
+                /* background-color: #2196F3; */
+                padding: 40px 10px 20px 10px;
+            }
+            .grid-container > div {
+                /* background-color: rgba(255, 255, 255, 0.8); */
+                text-align: center;
+                padding: 20px 0;
+                /* font-size: 30px; */
+            }
+
+
+            .wrapper {
+                margin: auto;
+                width: 50%;
+                /* border: 3px solid; */
+                border-radius: 5px;
+                padding: 10px;
+                background-color: #474B4F;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40%;
+            }
+            html, body {
+                background-color: #222629;
+            }
+            .profilehead {
+                width:150px;
+                display:block;
+                /* margin:20px; */
+                border:2px dashed;
+                border-color: #FFFFFF;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #474B4F;
+            }
+
+            .profileicon {
+                width: 75px;
+                height: 75px;
+                object-fit: cover;
+                border-radius: 50%;
+                position: relative;
+                margin-left:37px;
+                align-items: center;
+            }
+
+            #username {
+                text-align:center;
+                color: white;
+                padding:5px;
+                width:150px;
+                position:relative;
+                -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+                -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+                box-sizing: border-box;         /* Opera/IE 8+ */
+                font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "wrapper">
+            <div class=profilehead>
+                <img class=profileicon src="../images/khazix poro.jpg" alt="Profile Icon"></a>
+                <div id=username>M0rannon</div>
+            </div>
+            <div class="grid-container">
+                <div class="tl">
+                    <div class = "summary_card">
+                    <div id = "image" style="display: inline; float: left;" >
+                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                    </div>
+                    <div id = "text" class = "summary_card_text_block">
+                        <p class = "summary_card_title">League of Legends</p>
+                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
+                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                    </div>
+                </div></div>
+                <div class="tr"><div class = "summary_card">
+                    <div id = "image" style="display: inline; float: left;" >
+                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                    </div>
+                    <div id = "text" class = "summary_card_text_block">
+                        <p class = "summary_card_title">League of Legends</p>
+                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
+                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                    </div>
+                </div></div>
+                <div class="ll"><div class = "summary_card">
+                    <div id = "image" style="display: inline; float: left;" >
+                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                    </div>
+                    <div id = "text" class = "summary_card_text_block">
+                        <p class = "summary_card_title">League of Legends</p>
+                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
+                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                    </div>
+                </div></div>
+                <div class="lr"><div class = "summary_card">
+                    <div id = "image" style="display: inline; float: left;" >
+                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                    </div>
+                    <div id = "text" class = "summary_card_text_block">
+                        <p class = "summary_card_title">League of Legends</p>
+                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
+                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+    </body>
+</html>
