@@ -45,7 +45,7 @@
         #menuIcon:hover {
             background-color:rgb(38,40,43);
         }
-        #hamburger {
+        .hamburger {
             width: 18px;
             height: 3px;
             background-color: rgb(160,164,175);
@@ -66,9 +66,9 @@
 <body>
     <div class="header">
         <div id="menuIcon">
-            <div id="hamburger"></div>
-            <div id="hamburger"></div>
-            <div id="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
         </div>
         <!-- <h1>Snow Warning</h1> -->
     </div>
@@ -76,6 +76,15 @@
         Hi
     </div>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
 </body>
 </html>
