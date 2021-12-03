@@ -16,7 +16,7 @@
             margin-top:0;
             background-color:rgb(74,62,81);
             position:absolute;
-            display:block;
+            display:flex;
             width:100%;
             height:50px;
             top:0;
@@ -30,6 +30,8 @@
             width:70px;
             background-color:rgb(74,62,81);
             box-shadow: 5px 5px 3px rgb(16,17,18);
+            display:flex;
+            flex-direction: column;
         }
 
         #menuIcon {
@@ -82,22 +84,86 @@
 
         }
 
-        h1 {
-            padding-top:0;
-            width:25%;
-            margin-right:0;
-            display:inline-block;
+        .iconDropdown {
+            width:50px;
+            height:32px;
+            right:15px;
+            top:9px;
+            display:flex;
+            position:fixed;
+            z-index:10;
+            margin:0;
+        }
+
+        .iconDropdown:hover .arrow {
+            border: solid #f5f5f5;
+            border-width: 0 2.5px 2.5px 0;
+            transition:0.2s;
+        }
+
+        #profileIcon {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .arrow {
+            border: solid #a4a9af;
+            height:0px;
+            border-width: 0 2.5px 2.5px 0;
+            display: inline-flex;
+            padding: 2.5px;
+            position:relative;
+            top:10px;
+            right:-9px;
+            transition:0.2s;
+        }
+
+        .dropdownContent {
+            display: none;
+            position: fixed;
+            top: 49px;
+            right: 13px;
+            min-height: fit-content;
+            background-color: #292d33;
+            min-width: 90px;
+            box-shadow: 5px 5px 3px rgb(16,17,18);
+            border-radius:5px;
+        }
+
+        .iconDropdown:hover .dropdownContent {
+            display: flex;
+        }
+
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        p {
+            display:inline-flex;
+            size:20px;
+            z-index:100;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div id="menuIcon">
+        <div id="menuIcon" onclick="toggleSideNav()">
             <div id="hamburger"></div>
             <div id="hamburger"></div>
             <div id="hamburger"></div>
         </div>
         <!-- Need to add links, how do I do that with the routes? -->
+        <div class="iconDropdown">
+            <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
+            <i class="arrow down"></i>
+            <div class="dropdownContent">
+                Test
+            </div>
+        </div>
     </div>
     <div class="sideMenu">
         <div id="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
