@@ -5,10 +5,15 @@
             .summary_card {
                 border: 1px solid;
                 border-color: #6B6E70;
-                /* height: 100px;
-                width: 400px; */
                 border-radius: 10px;
-                /* display: flex; */
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                background-color: #727578;
+                box-shadow: 1px 2px rgba(33,33,33,.2);
+            }
+            .summary_card:hover {
+                box-shadow: 2px 4px 11px rgba(33,33,33,.5); 
             }
             .summary_card_image {
                 width: 80px;
@@ -20,54 +25,40 @@
                 width: fit-content;
                 block-size: fit-content;
                 display:inline; 
-                white-space:pre-line;
+                text-align: left;
             }
             .summary_card_title {
-                display:inline; 
-                white-space:pre-line;
+                text-align: left;
                 color: white;
                 font-weight: bold;
                 font-size: x-large;
+                margin: 0;
             }
-            .summary_card_stat_name {
-                display:inline; 
-                white-space:pre-line;
-                color: white;
-                font-weight: bold;
-                font-size: large;
-            }
-            .summary_card_stat_info {
-                display:inline; 
-                white-space:pre-line;
+            .summary_card_stat {
+                text-align: left;
+                margin: 0;
                 color: white;
                 font-size: large;
             }
-            /* Grid rules */
-            .item1 { grid-area: ul; }
-            .item2 { grid-area: menu; }
-            .item3 { grid-area: main; }
-            .item4 { grid-area: right; }
+            .item1 { grid-area: tl; }
+            .item2 { grid-area: tr; }
+            .item3 { grid-area: ll; }
+            .item4 { grid-area: lr; }
             .grid-container {
                 display: grid;
                 grid-template-areas:
                     'tl tr'
                     'll lr';
                 grid-gap: 10px;
-                /* background-color: #2196F3; */
                 padding: 40px 10px 20px 10px;
             }
             .grid-container > div {
-                /* background-color: rgba(255, 255, 255, 0.8); */
                 text-align: center;
                 padding: 20px 0;
-                /* font-size: 30px; */
             }
-
-
             .wrapper {
                 margin: auto;
                 width: 50%;
-                /* border: 3px solid; */
                 border-radius: 5px;
                 padding: 10px;
                 background-color: #474B4F;
@@ -84,7 +75,6 @@
             .profilehead {
                 width:150px;
                 display:block;
-                /* margin:20px; */
                 border:2px dashed;
                 border-color: #FFFFFF;
                 margin-left: auto;
@@ -124,45 +114,52 @@
             <div class="grid-container">
                 <div class="tl">
                     <div class = "summary_card">
-                    <div id = "image" style="display: inline; float: left;" >
-                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                        <div id = "image" style="display: inline; float: left;" >
+                            <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                        </div>
+                        <div id = "text" class = "summary_card_text_block">
+                            <p class = "summary_card_title">League of Legends</p>
+                            <p class = "summary_card_stat"><b>Stat 1:</b> Stat info</p>
+                            <p class = "summary_card_stat"><b>Stat 2:</b> Stat info</p>
+                        </div>
                     </div>
-                    <div id = "text" class = "summary_card_text_block">
-                        <p class = "summary_card_title">League of Legends</p>
-                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
-                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                </div>
+                <div class="tr">
+                    <div class = "summary_card">
+                        <div id = "image" style="display: inline; float: left;" >
+                            <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                        </div>
+                        <div id = "text" class = "summary_card_text_block">
+                            <p class = "summary_card_title">League of Legends</p>
+                            <p class = "summary_card_stat"><b>Stat 1:</b> Stat info</p>
+                            <p class = "summary_card_stat"><b>Stat 2:</b> Stat info</p>
+                        </div>
                     </div>
-                </div></div>
-                <div class="tr"><div class = "summary_card">
-                    <div id = "image" style="display: inline; float: left;" >
-                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                </div>
+                <div class="ll">
+                    <div class = "summary_card">
+                        <div id = "image" style="display: inline; float: left;" >
+                            <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                        </div>
+                        <div id = "text" class = "summary_card_text_block">
+                            <p class = "summary_card_title">League of Legends</p>
+                            <p class = "summary_card_stat"><b>Stat 1:</b> Stat info</p>
+                            <p class = "summary_card_stat"><b>Stat 2:</b> Stat info</p>
+                        </div>
                     </div>
-                    <div id = "text" class = "summary_card_text_block">
-                        <p class = "summary_card_title">League of Legends</p>
-                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
-                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
+                </div>
+                <div class="lr">
+                    <div class = "summary_card">
+                        <div id = "image" style="display: inline; float: left;" >
+                            <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
+                        </div>
+                        <div id = "text" class = "summary_card_text_block">
+                            <p class = "summary_card_title">League of Legends</p>
+                            <p class = "summary_card_stat"><b>Stat 1:</b> Stat info</p>
+                            <p class = "summary_card_stat"><b>Stat 2:</b> Stat info</p>
+                        </div>
                     </div>
-                </div></div>
-                <div class="ll"><div class = "summary_card">
-                    <div id = "image" style="display: inline; float: left;" >
-                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
-                    </div>
-                    <div id = "text" class = "summary_card_text_block">
-                        <p class = "summary_card_title">League of Legends</p>
-                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
-                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
-                    </div>
-                </div></div>
-                <div class="lr"><div class = "summary_card">
-                    <div id = "image" style="display: inline; float: left;" >
-                        <img src="../images/league_of_legends_icon.png" alt="League of Legends" class="summary_card_image"/>
-                    </div>
-                    <div id = "text" class = "summary_card_text_block">
-                        <p class = "summary_card_title">League of Legends</p>
-                        <p class = "summary_card_stat_name">Stat 1: </p><p class = "summary_card_stat_info">Stat info</p>
-                        <p class = "summary_card_stat_name">Stat 2: </p><p class = "summary_card_stat_info">Stat info</p>
-                    </div>
-                </div></div>
+                </div>
             </div>
         </div>
     </body>
