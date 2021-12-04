@@ -12,21 +12,43 @@
             color:rgb(245,245,245);
             background-color:rgb(24,25,26);
         }
+
+        .fullpage {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            height: 100%;
+        }
+
+        .withoutheader {
+            display: flex;
+            flex-direction: row;
+            min-height: 400px;
+            flex: 1 1 auto;
+        }
+
+        .content {
+            display: flex;
+            margin:30px;
+            left:70px;
+            justify-content: center;
+            flex:1;
+        }
+
         .header {
             margin-top:0;
             background-color:rgb(74,62,81);
-            position:absolute;
+            /* position:absolute; */
             display:flex;
             width:100%;
             height:50px;
             top:0;
             box-shadow: 5px 5px 3px rgb(16,17,18);
+            flex: 0 1 auto;
         }
 
         .sideMenu {
-            position:absolute;
-            top:50px;
-            bottom:0;
+            min-height:400px;
             width:70px;
             background-color:rgb(74,62,81);
             box-shadow: 5px 5px 3px rgb(16,17,18);
@@ -150,31 +172,39 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div id="menuIcon" onclick="toggleSideNav()">
-            <div id="hamburger"></div>
-            <div id="hamburger"></div>
-            <div id="hamburger"></div>
+    <div class="fullpage">
+        <div class="header">
+            <div id="menuIcon" onclick="toggleSideNav()">
+                <div id="hamburger"></div>
+                <div id="hamburger"></div>
+                <div id="hamburger"></div>
+            </div>
+            <!-- Need to add links, how do I do that with the routes? -->
+            <div class="iconDropdown">
+                <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
+                <i class="arrow down"></i>
+                <div class="dropdownContent">
+                    Test
+                </div>
+            </div>
         </div>
-        <!-- Need to add links, how do I do that with the routes? -->
-        <div class="iconDropdown">
-            <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
-            <i class="arrow down"></i>
-            <div class="dropdownContent">
-                Test
+        <div class="withoutheader">
+            <div class="sideMenu">
+                <div id="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
+                <div id="sideButton">2</div>
+                <div id="sideButton">3</div>
+                <div id="sideButton">4</div>
+                <div id="sideButton" style="position:absolute; bottom:20px;">
+                    <img id="siteLogo" src="../static/images/logo-placeholder.png" /> 
+                </div>
+            </div>
+
+            <div class="content">
+                {% block content %}{% endblock %}
             </div>
         </div>
     </div>
-    <div class="sideMenu">
-        <div id="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
-        <div id="sideButton">2</div>
-        <div id="sideButton">3</div>
-        <div id="sideButton">4</div>
-        <div id="sideButton" style="position:absolute; bottom:20px;">
-            <img id="siteLogo" src="../static/images/logo-placeholder.png" /> 
-        </div>
-    </div>
 
-    {% block content %}{% endblock %}
+    
 </body>
 </html>
