@@ -1,16 +1,30 @@
-from app import db
+from app import db, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(320), unique=True, nullable=False)
     username = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
-    League = db.relationship('League', backref='id', lazy=True)
-    Destiny = db.relationship('Destiny', backref='id', lazy=True)
-    Osu = db.relationship('Osu', backref='id', lazy=True)
+    League = db.relationship('League', backref='league_id', lazy=True)
+    Destiny = db.relationship('Destiny', backref='destiny_id', lazy=True)
+    Osu = db.relationship('Osu', backref='osu_id', lazy=True)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+@login.user_loader
+def load_user(uid):
+    return User.query.get(int(uid))
 
 
 class League(db.Model):

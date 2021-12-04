@@ -71,7 +71,7 @@
             background-color:rgb(38,40,43);
             transition: 0.2s;
         }
-        #hamburger {
+        .hamburger {
             width: 18px;
             height: 3px;
             background-color: rgb(160,164,175);
@@ -200,11 +200,18 @@
             </div>
 
             <div class="content">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
                 {% block content %}{% endblock %}
             </div>
         </div>
     </div>
-
-    
 </body>
 </html>
