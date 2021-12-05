@@ -14,7 +14,25 @@ def index():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    user_games = [
+                    {
+                        "name": "Destiny 2",
+                        "stat1_title": "Stat 1",
+                        "stat2_title": "Stat 2",
+                        "stat1_info": "Stat info",
+                        "stat2_info": "Stat info",
+                    },
+                    {
+                        "name": "League of Legends",
+                        "stat1_title": "Stat 1",
+                        "stat2_title": "Stat 2",
+                        "stat1_info": "Stat info",
+                        "stat2_info": "Stat info",
+                    },
+                ]
+    username = "my_user"
+
+    return render_template('profile.html', username = username, game_data = user_games)
 
 
 @app.route('/contact')
