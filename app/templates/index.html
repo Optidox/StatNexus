@@ -1,4 +1,53 @@
-{% extends 'base.html' %}
-{% block content %}
-<p>Hello, {{ current_user.username }}!</p>
-{% endblock %}
+<html>
+<head>
+    <style>
+        html, body {
+            margin:0;
+        }
+        .wrapper {
+            background: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)) , url("../static/images/login-background.jpg");
+            background-color: black;
+            width:100%;
+            height:100%;
+            margin:0;
+            display:flex;
+            background-size: cover;
+        }
+
+        .text {
+            color: #f5f5f5;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            top:30%;
+            width:60%;
+            margin:0 auto;
+            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+            text-align:center;
+        }
+        
+        h1 {
+            font-size: 50px;
+            color:#9040be;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="text">
+            <div style="height:30%"></div>
+            <h1>
+                Snow Warning
+            </h1>
+            <h2>
+                Find the stats for all of your favorite games in one place, 
+            </h2>
+        </div>
+    </div>
+</body>
+</html>
