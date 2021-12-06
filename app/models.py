@@ -5,6 +5,7 @@ from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    alt_id = db.Column(db.Unicode(256), unique=True, nullable=False)
     email = db.Column(db.String(320), unique=True, nullable=False)
     username = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
@@ -21,28 +22,31 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_id(self):
+        return self.alt_id
+
 
 @login.user_loader
 def load_user(uid):
-    return User.query.get(int(uid))
+    return User.query.filter_by(alt_id=uid).first()
 
 
 class League(db.Model):
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True,)
+    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     access_token = db.Column(db.String(256))
     refresh_token = db.Column(db.String(256))
     expiration_time = db.Column(db.Integer)
 
 
 class Destiny(db.Model):
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True,)
+    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     access_token = db.Column(db.String(256))
     refresh_token = db.Column(db.String(256))
     expiration_time = db.Column(db.Integer)
 
 
 class Osu(db.Model):
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True,)
+    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     access_token = db.Column(db.String(256))
     refresh_token = db.Column(db.String(256))
     expiration_time = db.Column(db.Integer)
