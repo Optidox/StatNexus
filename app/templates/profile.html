@@ -1,4 +1,117 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>ipsum lorem etc im not gonna google filler text</p>
+<style>
+    .wrapper {
+        margin: auto;
+        width: 60%;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #474B4F;
+    }
+    .summary_card {
+        border: 1px solid;
+        border-color: #6B6E70;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        background-color: #727578;
+        box-shadow: 1px 2px rgba(33,33,33,.2);
+        /* width: fit-content; */
+    }
+    .summary_card:hover {
+        box-shadow: 2px 4px 11px rgba(33,33,33,.5); 
+    }
+    .summary_card_image {
+        width: 80px;
+        height: 80px;
+        vertical-align: sub;
+        padding-right: 10px;
+    }
+    .summary_card_text_block {
+        vertical-align: text-top;
+        width: fit-content;
+        block-size: fit-content;
+        text-align: left;
+    }
+    .summary_card_title {
+        text-align: left;
+        color: white;
+        font-weight: bold;
+        font-size: x-large;
+        margin: 0;
+    }
+    .summary_card_stat {
+        text-align: left;
+        margin: 0;
+        color: white;
+        font-size: large;
+    }
+    .grid-container {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 50% 50%;
+        padding: 10px;
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+    }
+    html, body {
+        background-color: #222629;
+    }
+    .profilehead {
+        width:150px;
+        display:block;
+        margin-top:20px;
+        border-color: #FFFFFF;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profileicon {
+        width: 50%;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 50%;
+        position: relative;
+        margin-top:5px;
+        margin-left:25%;
+        align-items: center;
+    }
+
+    #username {
+        text-align:center;
+        color: white;
+        padding:5px;
+        width:150px;
+        position:relative;
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+        font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+    }
+</style>
+<div class = "wrapper">
+    <div class=profilehead>
+        <img class=profileicon src="../static/images/khazix poro.jpg" alt="Profile Icon"></a>
+        <div id=username>{{ username }}</div>
+    </div>
+    <div class = "grid-container">
+    {% for game in game_data %}
+        <div class = "summary_card">
+            <div id = "image" style="display: inline; float: left;" >
+                <img src="{{ game.logo_path }}" class="summary_card_image"/>
+            </div>
+            <div id = "text" class = "summary_card_text_block">
+                <p class = "summary_card_title">{{ game.name }}</p>
+                <p class = "summary_card_stat"><b>{{ game.stat1_title }}</b> {{ game.stat1_info }}</p>
+                <p class = "summary_card_stat"><b>{{ game.stat2_title }}</b> {{ game.stat2_info }} </p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}
