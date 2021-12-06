@@ -7,45 +7,47 @@
         border-radius: 5px;
         padding: 10px;
         background-color: #474B4F;
-        display: none;
+        transition: visibility 0.25s, opacity 0.25s linear;
     }
-    .summary_card {
+    .stat_card {
         border: 1px solid;
         border-color: #6B6E70;
         border-radius: 10px;
-        display: flex;
         align-items: center;
         padding: 8px;
         background-color: #727578;
         box-shadow: 1px 2px rgba(33,33,33,.2);
     }
-    .summary_card:hover {
+    .stat_card:hover {
         box-shadow: 2px 4px 11px rgba(33,33,33,.5); 
     }
-    .summary_card_image {
-        width: 80px;
-        height: 80px;
-        vertical-align: sub;
-        padding-right: 10px;
-    }
-    .summary_card_text_block {
+    .stat_card_text_block {
         vertical-align: text-top;
         width: fit-content;
         block-size: fit-content;
         text-align: left;
     }
-    .summary_card_title {
-        text-align: left;
+    .stat_card_title {
         color: white;
         font-weight: bold;
         font-size: x-large;
         margin: 0;
     }
-    .summary_card_stat {
-        text-align: left;
+    .stat_card_info {
         margin: 0;
         color: white;
         font-size: large;
+    }
+    body, html {
+        margin:0;
+        padding:0;
+        border:0;
+        outline:0;
+        color:rgb(245,245,245);
+        background-color:rgb(24,25,26);
+    }
+    .break_line {
+        border: 1px solid #56585A
     }
     .grid-container {
         display: grid;
@@ -62,27 +64,26 @@
     html, body {
         background-color: #222629;
     }
-    .profilehead {
+    .gamehead {
         width:150px;
         display:block;
         margin-top:20px;
         border-color: #FFFFFF;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .profileicon {
-        width: 50%;
-        height: 75px;
-        object-fit: cover;
-        border-radius: 50%;
-        position: relative;
-        margin-top:5px;
-        margin-left:25%;
         align-items: center;
     }
 
-    #username {
+    .gameicon {
+        width: 50%;
+        height: 75px;
+        object-fit: cover;
+        position: relative;
+        margin-top:5px;
+        margin-left:25%;
+    }
+
+    #game_name {
         text-align:center;
         color: white;
         padding:5px;
@@ -95,30 +96,19 @@
     }
 </style>
 
-<div class = "wrapper" id = "profile_wrapper">
-    <div class=profilehead>
-        <img class=profileicon src="../static/images/khazix poro.jpg" alt="Profile Icon"></a>
-        <div id=username>{{ username }}</div>
+<div class = "wrapper">
+    <div class=gamehead>
+        <img src="{{ game_data.logo_path }}" class="gameicon"/>
+        <div id=game_name>{{ game_data.name }}</div>
     </div>
     <div class = "grid-container">
-    {% for game in game_data %}
-        <div class = "summary_card">
-            <div id = "image" style="display: inline; float: left;" >
-                <img src="{{ game.logo_path }}" class="summary_card_image"/>
+        {% for stat in stat_data %}
+            <div class = "stat_card">
+                <p class = "stat_card_title">{{ stat.stat_title }}</p>
+                <hr class = "break_line">
+                <p class = "stat_card_info">{{ stat.stat_info }}</p>
             </div>
-            <div id = "text" class = "summary_card_text_block">
-                <p class = "summary_card_title">{{ game.name }}</p>
-                <p class = "summary_card_stat"><b>{{ game.stat1_title }}</b> {{ game.stat1_info }}</p>
-                <p class = "summary_card_stat"><b>{{ game.stat2_title }}</b> {{ game.stat2_info }} </p>
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
-<script language='javascript'>
-    $( document ).ready(function() {
-        console.log("ready");
-        $("#profile_wrapper").fadeIn();
-    });
-</script>
 {% endblock %}

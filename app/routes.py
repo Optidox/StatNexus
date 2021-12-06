@@ -60,7 +60,34 @@ def league():
 
 @app.route('/destiny')
 def destiny():
-    return render_template('destiny.html')
+    game_data = {
+                    "name": "Destiny 2",
+                    "logo_path": "../static/images/destiny_icon.png",
+                }
+    stat_data = [
+                    { 
+                        "stat_title": "PVP KDA",
+                        "stat_info": "1.07",
+                    },
+                    { 
+                        "stat_title": "PVP KDA",
+                        "stat_info": "3.75",
+                    },
+                    { 
+                        "stat_title": "Vault of Glass Clears",
+                        "stat_info": "14",
+                    },
+                    { 
+                        "stat_title": "Last Wish Clears",
+                        "stat_info": "15",
+                    },
+                    { 
+                        "stat_title": "Garden of Salvation Clears",
+                        "stat_info": "6",
+                    },
+                ]
+                
+    return render_template('game.html', game_data = game_data, stat_data = stat_data)
 
 
 @app.route('/osu')
