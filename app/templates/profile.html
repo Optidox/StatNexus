@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
+    .column {
+        display:block;
+        flex-basis:0;
+        flex-grow:1;
+        flex-shrink:1;
+        padding:.75rem
+    }
+    .columns {
+        margin-left:-.75rem;
+        margin-right:-.75rem;
+        margin-top:-.75rem
+    }
     .summary_card {
         border: 1px solid;
         border-color: #6B6E70;
@@ -23,7 +35,7 @@
         vertical-align: text-top;
         width: fit-content;
         block-size: fit-content;
-        display:inline; 
+        /* display:inline;  */
         text-align: left;
     }
     .summary_card_title {
@@ -111,7 +123,25 @@
         <img class=profileicon src="../static/images/khazix poro.jpg" alt="Profile Icon"></a>
         <div id=username>{{ username }}</div>
     </div>
-    <div class="grid-container">
+    {% for games in game_data|batch(2) %}
+        <div class = "columns">
+        {% for game in games %}
+            <div class = "column">
+                <div class = "summary_card">
+                    <div id = "image" style="display: inline; float: left;" >
+                        <img src="../static/images/league_of_legends_icon.png" class="summary_card_image"/>
+                    </div>
+                    <div id = "text" class = "summary_card_text_block">
+                        <p class = "summary_card_title">{{ game.name }}</p>
+                        <p class = "summary_card_stat"><b>{{ game.stat1_title }}</b> {{ game.stat1_info }}</p>
+                        <p class = "summary_card_stat"><b>{{ game.stat2_title }}</b> {{ game.stat2_info }} </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <!-- <div class="grid-container">
         <div class="tl">
             <div class = "summary_card">
                 <div id = "image" style="display: inline; float: left;" >
@@ -160,6 +190,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 {% endblock %}
