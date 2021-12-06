@@ -125,7 +125,57 @@
             </div>
         </div>
         <div id="login">
-
+            <form action="" method="post" novalidate>
+                {{ logform.hidden_tag() }}
+                <p>
+                    {{ logform.username.label }}<br>
+                    {{ logform.username(size=32) }}<br>
+                    {% for error in logform.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ logform.password.label }}<br>
+                    {{ logform.password(size=32) }}<br>
+                    {% for error in logform.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ logform.remember_me() }} {{ logform.remember_me.label }}</p>
+                <p>{{ logform.submit() }}</p>
+            </form>
+            <form action="" method="post" novalidate>
+                {{ regform.hidden_tag() }}
+                <p>
+                    {{ regform.username.label }}<br>
+                    {{ regform.username(size=32) }}<br>
+                    {% for error in regform.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ regform.email.label }}<br>
+                    {{ regform.email(size=64) }}<br>
+                    {% for error in regform.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ regform.password.label }}<br>
+                    {{ regform.password(size=32) }}<br>
+                    {% for error in regform.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ regform.password2.label }}<br>
+                    {{ regform.password2(size=32) }}<br>
+                    {% for error in regform.password2.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ regform.submit() }}</p>
+            </form>
         </div>
         <div id="backgroundOverlay" onclick="hideLogin()"></div>
     </div>

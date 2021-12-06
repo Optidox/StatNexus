@@ -9,7 +9,9 @@ from werkzeug.urls import url_parse
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    form1 = LoginForm()
+    form2 = RegistrationForm()
+    return render_template('index.html', logform=form1, regform=form2)
 
 
 @app.route('/profile')
@@ -50,7 +52,7 @@ def profile():
                 ]
     username = "my_user"
 
-    return render_template('profile.html', username = username, game_data = user_games)
+    return render_template('profile.html', username=username, game_data=user_games)
 
 
 @app.route('/contact')
