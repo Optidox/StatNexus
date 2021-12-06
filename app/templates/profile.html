@@ -7,6 +7,8 @@
         border-radius: 5px;
         padding: 10px;
         background-color: #474B4F;
+        visibility: hidden;
+        transition: visibility 0.25s, opacity 0.25s linear;
     }
     .summary_card {
         border: 1px solid;
@@ -17,7 +19,6 @@
         padding: 8px;
         background-color: #727578;
         box-shadow: 1px 2px rgba(33,33,33,.2);
-        /* width: fit-content; */
     }
     .summary_card:hover {
         box-shadow: 2px 4px 11px rgba(33,33,33,.5); 
@@ -94,7 +95,8 @@
         font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
     }
 </style>
-<div class = "wrapper">
+
+<div class = "wrapper" id = "profile_wrapper">
     <div class=profilehead>
         <img class=profileicon src="../static/images/khazix poro.jpg" alt="Profile Icon"></a>
         <div id=username>{{ username }}</div>
@@ -114,4 +116,11 @@
     {% endfor %}
     </div>
 </div>
+<script language='javascript'>
+    $( document ).ready(function() {
+        console.log("ready");
+        $(".wrapper").css('visibility', 'visibile');
+        // $("#profile_wrapper").toggle();
+    });
+</script>
 {% endblock %}

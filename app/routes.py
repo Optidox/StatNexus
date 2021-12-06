@@ -18,10 +18,10 @@ def profile():
                     {
                         "name": "Destiny 2",
                         "logo_path": "../static/images/destiny_icon.png",
-                        "stat1_title": "Stat 1",
-                        "stat2_title": "Stat 2",
-                        "stat1_info": "Stat info",
-                        "stat2_info": "Stat info",
+                        "stat1_title": "PVP KDA",
+                        "stat2_title": "PVE KDA",
+                        "stat1_info": "1.07",
+                        "stat2_info": "3.09",
                     },
                     {
                         "name": "League of Legends",
@@ -39,14 +39,6 @@ def profile():
                         "stat1_info": "Stat info",
                         "stat2_info": "Stat info",
                     },
-                    # {
-                    #     "name": "League of Legends",
-                    #     "logo_path": "../static/images/league_of_legends_icon.png",
-                    #     "stat1_title": "Stat 1",
-                    #     "stat2_title": "Stat 2",
-                    #     "stat1_info": "Stat info",
-                    #     "stat2_info": "Stat info",
-                    # },
                 ]
     username = "my_user"
 
