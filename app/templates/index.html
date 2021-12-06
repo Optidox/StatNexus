@@ -19,11 +19,11 @@
             display:flex;
             flex-direction: column;
             align-items: center;
-            top:30%;
             width:60%;
             margin:0 auto;
             font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
             text-align:center;
+            text-shadow: 2px 1px 7px rgb(16,17,18);
         }
         
         h1 {
@@ -32,22 +32,102 @@
         }
 
         h2 {
+            margin-top:50px;
             font-size: 30px;
         }
 
+        p {
+            font-size: 20px;
+            margin-top:0px;
+        }
+
+        #loginButton {
+            width:200px;
+            height:40px;
+            background-color:#9040be;
+            color:#f5f5f5;
+            margin:30px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            border-radius:5px;
+            font-size:20px;
+            transition:0.2s;
+            cursor:pointer;
+        }
+
+        #loginButton:hover {
+            background-color: #9b5ebe;
+            transition:0.2s;
+        }
+
+        #login {
+            width:20%;
+            height:60%;
+            min-width:100px;
+            min-height:300px;
+            background-color:#f5f5f5;
+            position:absolute;
+            top:20%;
+            left:40%;
+            border-radius: 10px;
+            box-shadow: 2px 1px 7px rgb(16,17,18);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s, opacity 0.25s linear;
+            z-index: 1000;
+        }
+
+        #backgroundOverlay{
+            background-color:transparent;
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            display:none;
+        }
+
     </style>
+
+    <script language="javascript">
+        function showLogin() {
+            var login = document.getElementById("login");
+            login.style.visibility = "visible";
+            login.style.opacity = 1;
+            document.getElementById("backgroundOverlay").style.display="block";
+        }
+        
+        function hideLogin() {
+            var login = document.getElementById("login");
+            login.style.visibility = "hidden";
+            login.style.opacity = 0;
+            document.getElementById("backgroundOverlay").style.display="none";
+        }
+    </script>
 </head>
 <body>
     <div class="wrapper">
         <div class="text">
-            <div style="height:30%"></div>
+            <div style="height:20%"></div>
             <h1>
                 Snow Warning
             </h1>
             <h2>
-                Find the stats for all of your favorite games in one place, 
+                Make finding your stats easier than ever
             </h2>
+            <p>
+                Find the stats for all of your favorite games in one place, 
+                whether you're interested in one or many games.
+            </p>
+            <div id="loginButton" onclick="showLogin()">
+                Sign In
+            </div>
         </div>
+        <div id="login">
+
+        </div>
+        <div id="backgroundOverlay" onclick="hideLogin()"></div>
     </div>
 </body>
 </html>
