@@ -4,7 +4,8 @@ from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
-from app.osu_api import make_auth_url, check_state_hash
+from werkzeug.security import generate_password_hash
+from app.osu_api import make_auth_url, check_state, get_tokens
 
 
 @app.route('/')
@@ -45,10 +46,7 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        print('validated')
         user = User.query.filter_by(username=form.username.data).first()
-        print(user)
-        print(user.check_password(form.password.data))
         if user is None or not user.check_password(form.password.data):
             flash('Invalid Username or Password')
             return redirect(url_for('login'))
@@ -57,6 +55,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         print(next_page)
+        session.permanent = True
         return redirect(next_page)
     return render_template('temp_login.html', form=form)
 
@@ -73,7 +72,8 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, alt_id=generate_password_hash(form.username.data, 'sha256'),
+                    email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -92,4 +92,5 @@ def osu_callback():
     state = request.args.get('state', '')
     if not check_state(state):
         abort(403)
-    token_info =
+    token_info = get_tokens(request.args.get('code'))
+    expiration_time = int(token_info['expires_in']) + int(time.time())
