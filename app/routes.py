@@ -17,6 +17,7 @@ def profile():
     user_games = [
                     {
                         "name": "Destiny 2",
+                        "logo_path": "../static/images/destiny_icon.png",
                         "stat1_title": "Stat 1",
                         "stat2_title": "Stat 2",
                         "stat1_info": "Stat info",
@@ -24,6 +25,23 @@ def profile():
                     },
                     {
                         "name": "League of Legends",
+                        "logo_path": "../static/images/league_of_legends_icon.png",
+                        "stat1_title": "Stat 1",
+                        "stat2_title": "Stat 2",
+                        "stat1_info": "Stat info",
+                        "stat2_info": "Stat info",
+                    },
+                    {
+                        "name": "League of Legends",
+                        "logo_path": "../static/images/league_of_legends_icon.png",
+                        "stat1_title": "Stat 1",
+                        "stat2_title": "Stat 2",
+                        "stat1_info": "Stat info",
+                        "stat2_info": "Stat info",
+                    },
+                    {
+                        "name": "League of Legends",
+                        "logo_path": "../static/images/league_of_legends_icon.png",
                         "stat1_title": "Stat 1",
                         "stat2_title": "Stat 2",
                         "stat1_info": "Stat info",
