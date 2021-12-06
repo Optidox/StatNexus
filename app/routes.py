@@ -1,9 +1,10 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, abort
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
+from app.osu_api import make_auth_url, check_state_hash
 
 
 @app.route('/')
@@ -79,3 +80,16 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/osulogin', methods=['GET', 'POST'])
+def osu_login():
+    return redirect(make_auth_url())
+
+
+@app.route('/osucallback')
+def osu_callback():
+    state = request.args.get('state', '')
+    if not check_state(state):
+        abort(403)
+    token_info =
