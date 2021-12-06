@@ -17,6 +17,7 @@
         padding: 8px;
         background-color: #727578;
         box-shadow: 1px 2px rgba(33,33,33,.2);
+        /* width: fit-content; */
     }
     .summary_card:hover {
         box-shadow: 2px 4px 11px rgba(33,33,33,.5); 
@@ -31,7 +32,6 @@
         vertical-align: text-top;
         width: fit-content;
         block-size: fit-content;
-        /* display:inline;  */
         text-align: left;
     }
     .summary_card_title {
@@ -49,8 +49,8 @@
     }
     .grid-container {
         display: grid;
-        grid-column-gap: 10px;
-        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        grid-template-columns: 50% 50%;
         padding: 10px;
     }
     .center {
@@ -66,11 +66,9 @@
         width:150px;
         display:block;
         margin-top:20px;
-        /* border:2px dashed; */
         border-color: #FFFFFF;
         margin-left: auto;
         margin-right: auto;
-        /* align-items: center; */
     }
 
     .profileicon {
@@ -79,7 +77,6 @@
         object-fit: cover;
         border-radius: 50%;
         position: relative;
-
         margin-top:5px;
         margin-left:25%;
         align-items: center;
@@ -102,21 +99,19 @@
         <img class=profileicon src="../static/images/khazix poro.jpg" alt="Profile Icon"></a>
         <div id=username>{{ username }}</div>
     </div>
-    {% for games in game_data|batch(2) %}
-        <div class = "grid-container">
-        {% for game in games %}
-            <div class = "summary_card">
-                <div id = "image" style="display: inline; float: left;" >
-                    <img src="{{ game.logo_path }}" class="summary_card_image"/>
-                </div>
-                <div id = "text" class = "summary_card_text_block">
-                    <p class = "summary_card_title">{{ game.name }}</p>
-                    <p class = "summary_card_stat"><b>{{ game.stat1_title }}</b> {{ game.stat1_info }}</p>
-                    <p class = "summary_card_stat"><b>{{ game.stat2_title }}</b> {{ game.stat2_info }} </p>
-                </div>
+    <div class = "grid-container">
+    {% for game in game_data %}
+        <div class = "summary_card">
+            <div id = "image" style="display: inline; float: left;" >
+                <img src="{{ game.logo_path }}" class="summary_card_image"/>
             </div>
-        {% endfor %}
+            <div id = "text" class = "summary_card_text_block">
+                <p class = "summary_card_title">{{ game.name }}</p>
+                <p class = "summary_card_stat"><b>{{ game.stat1_title }}</b> {{ game.stat1_info }}</p>
+                <p class = "summary_card_stat"><b>{{ game.stat2_title }}</b> {{ game.stat2_info }} </p>
+            </div>
         </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}
