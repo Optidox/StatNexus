@@ -1,11 +1,12 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request, abort
+from flask import render_template, flash, redirect, url_for, request, abort, session
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.osu_api import make_auth_url, check_state, get_tokens
+import time
 
 
 @app.route('/')
