@@ -125,7 +125,7 @@
             </div>
         </div>
         <div id="login">
-            <form action="" method="post" novalidate>
+            <form action="{{ url_for('login') }}" method="post" novalidate>
                 {{ logform.hidden_tag() }}
                 <p>
                     {{ logform.username.label }}<br>
@@ -144,7 +144,7 @@
                 <p>{{ logform.remember_me() }} {{ logform.remember_me.label }}</p>
                 <p>{{ logform.submit() }}</p>
             </form>
-            <form action="" method="post" novalidate>
+            <form action="{{ url_for('register') }}" method="post" novalidate>
                 {{ regform.hidden_tag() }}
                 <p>
                     {{ regform.username.label }}<br>
