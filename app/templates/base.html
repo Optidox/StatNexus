@@ -12,6 +12,8 @@
             outline:0;
             color:rgb(245,245,245);
             background-color:rgb(24,25,26);
+            overflow: hidden;
+            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
         }
 
         .fullpage {
@@ -48,13 +50,14 @@
             flex: 0 1 auto;
         }
 
-        .sideMenu {
+        #sideMenu {
             min-height:400px;
             width:70px;
             background-color:rgb(74,62,81);
             box-shadow: 5px 5px 3px rgb(16,17,18);
             display:flex;
             flex-direction: column;
+            transition: width .3s ease;
         }
 
         #menuIcon {
@@ -82,7 +85,7 @@
             border-radius:5px;
         }
 
-        #sideButton {
+        .sideButton {
             display:flex;
             height:50px;
             width:70px;
@@ -91,7 +94,7 @@
             transition: 0.2s;
         }
 
-        #sideButton:hover {
+        .sideButton:hover {
             background-color:rgb(38,40,43);
             transition: 0.2s;
         }
@@ -144,6 +147,15 @@
             transition:0.2s;
         }
 
+        #dropdown {
+            display: none;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            width: 115px;
+            height: 75px;
+        }
+
         .dropdownContent {
             display: none;
             position: fixed;
@@ -154,10 +166,42 @@
             min-width: 90px;
             box-shadow: 5px 5px 3px rgb(16,17,18);
             border-radius:5px;
+            justify-content: center;
+        }
+
+        .dropdownButton {
+            padding:3px;
+            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+            text-align: center;
+            width:100%;
+            border-radius:5px;
+            -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+            -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+            box-sizing: border-box;         /* Opera/IE 8+ */
+        }
+
+        .dropdownButton:hover {
+            background-color: #313233;
         }
 
         .iconDropdown:hover .dropdownContent {
             display: flex;
+        }
+
+        .iconDropdown:hover #dropdown {
+            display: block;
+        }
+
+        .dropdownContent:hover, .dropdownButton:hover .dropdownContent {
+            display: flex;
+        }
+
+        .dropdownContent:hover #dropdown, .dropdownButton:hover #dropdown {
+            display: block;
+        }
+
+        #dropdown:hover {
+            display: block;
         }
 
         .down {
@@ -166,6 +210,13 @@
         }
 
     </style>
+
+    <script language="javascript">
+        function toggleSideNav() {
+            let sideMenu = document.getElementById("sideMenu");
+            console.log(sideMenu.innerHTML);
+        }
+    </script>
 </head>
 <body>
     <div class="fullpage">
@@ -179,18 +230,24 @@
             <div class="iconDropdown">
                 <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
                 <i class="arrow down"></i>
-                <div class="dropdownContent">
-                    Test
+                <div id="dropdown">
+                    <div class="dropdownContent">
+                        <a href="{{ url_for('logout') }}" style="color:inherit; text-decoration:none; width:100%;">
+                            <div class="dropdownButton">
+                                Sign out
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="withoutheader">
-            <div class="sideMenu">
-                <div id="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
-                <div id="sideButton">2</div>
-                <div id="sideButton">3</div>
-                <div id="sideButton">4</div>
-                <div id="sideButton" style="position:absolute; bottom:20px;">
+            <div id="sideMenu">
+                <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
+                <div class="sideButton">2</div>
+                <div class="sideButton">3</div>
+                <div class="sideButton">4</div>
+                <div class="sideButton" style="position:absolute; bottom:20px;">
                     <img id="siteLogo" src="../static/images/logo-placeholder.png" /> 
                 </div>
             </div>
