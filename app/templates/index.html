@@ -2,10 +2,13 @@
 <head>
     <style>
         html, body {
-            margin:0;
+            margin: 0; 
+            height: 100%; 
+            overflow: hidden
         }
+
         .wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)) , url("../static/images/login-background.jpg");
+            background: linear-gradient(rgba(0, 0, 0, 0.77),rgba(0, 0, 0, 0.77)) , url("../static/images/login-background2.jpg");
             background-color: black;
             width:100%;
             height:100%;
@@ -62,20 +65,52 @@
         }
 
         #login {
-            width:20%;
-            height:60%;
-            min-width:100px;
-            min-height:300px;
-            background-color:#f5f5f5;
-            position:absolute;
-            top:20%;
-            left:40%;
+            display: flex;
+            width: 250px;
+            height: 60%;
+            min-height: 300px;
+            background-color: #f5f5f5;
+            position: relative;
+            right: -50%;
+            top: 20%;
             border-radius: 10px;
-            box-shadow: 2px 1px 7px rgb(16,17,18);
+            box-shadow: 2px 1px 7px rgb(16 17 18);
             visibility: hidden;
             opacity: 0;
             transition: visibility 0.25s, opacity 0.25s linear;
             z-index: 1000;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+        }
+
+        #register {
+            display: flex;
+            width: 250px;
+            height: 60%;
+            min-height: 300px;
+            background-color: #f5f5f5;
+            position: relative;
+            right: -50%;
+            top: 20%;
+            border-radius: 10px;
+            box-shadow: 2px 1px 7px rgb(16 17 18);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s, opacity 0.25s linear;
+            z-index: 1000;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+        }
+
+        @media screen and (max-width: 500px) {
+            #login, #register {
+                width:250px;
+                align-self:center;
+            }
         }
 
         #backgroundOverlay{
@@ -88,20 +123,71 @@
             display:none;
         }
 
+        input {
+            padding:3px;
+            border-radius:5px;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 225px
+        }
+
+        input[type="submit" i] {
+            display:block;
+            margin: 0 auto;
+            background-color: #9040be;
+            cursor:pointer;
+            color:#f5f5f5;
+        }
+
+        input[type="submit" i]:hover {
+            background-color: #9b5ebe;
+            transition:0.2s;
+        }
+
+        .swapForms {
+            text-align: center;
+        }
+        .swapFormsButton {
+            text-decoration:underline;
+            color:lightcoral;
+            cursor:pointer;
+            text-align: center;
+        }
+
+        .swapFormsButton:hover {
+            text-decoration:underline;
+            color:rgb(238, 108, 108);
+        }
     </style>
 
     <script language="javascript">
         function showLogin() {
             var login = document.getElementById("login");
+            var register = document.getElementById("register");
             login.style.visibility = "visible";
             login.style.opacity = 1;
+            register.style.visibility = "hidden";
+            register.style.opacity = 0;
             document.getElementById("backgroundOverlay").style.display="block";
+        }
+
+        function showRegister() {
+            var login = document.getElementById("login");
+            var register = document.getElementById("register");
+            login.style.visibility = "hidden";
+            login.style.opacity = 0;
+            register.style.visibility = "visible";
+            register.style.opacity = 1;
         }
         
         function hideLogin() {
             var login = document.getElementById("login");
+            var register = document.getElementById("register");
             login.style.visibility = "hidden";
             login.style.opacity = 0;
+            register.style.visibility = "hidden";
+            register.style.opacity = 0;
             document.getElementById("backgroundOverlay").style.display="none";
         }
 
@@ -113,7 +199,7 @@
         <div class="text">
             <div style="height:20%"></div>
             <h1>
-                Snow Warning
+                Stat Nexus
             </h1>
             <h2>
                 Make finding your stats easier than ever
@@ -126,58 +212,67 @@
                 Sign In
             </div>
         </div>
-        <div id="login">
-            <form action="{{ url_for('login') }}" method="post" novalidate>
-                {{ logform.hidden_tag() }}
-                <p>
-                    {{ logform.username.label }}<br>
-                    {{ logform.username(size=32) }}<br>
-                    {% for error in logform.username.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ logform.password.label }}<br>
-                    {{ logform.password(size=32) }}<br>
-                    {% for error in logform.password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>{{ logform.remember_me() }} {{ logform.remember_me.label }}</p>
-                <p>{{ logform.submit() }}</p>
-            </form>
-            <form action="{{ url_for('register') }}" method="post" novalidate>
-                {{ regform.hidden_tag() }}
-                <p>
-                    {{ regform.username.label }}<br>
-                    {{ regform.username(size=32) }}<br>
-                    {% for error in regform.username.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ regform.email.label }}<br>
-                    {{ regform.email(size=64) }}<br>
-                    {% for error in regform.email.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ regform.password.label }}<br>
-                    {{ regform.password(size=32) }}<br>
-                    {% for error in regform.password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ regform.password2.label }}<br>
-                    {{ regform.password2(size=32) }}<br>
-                    {% for error in regform.password2.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-                <p>{{ regform.submit() }}</p>
-            </form>
+        <div style="position:absolute; right: 50%; height: 100%;">
+            <div id="login">
+                <form action="{{ url_for('login') }}" method="post" novalidate>
+                    {{ logform.hidden_tag() }}
+                    <p>
+                        {{ logform.username.label }}<br>
+                        {{ logform.username(size=32) }}<br>
+                        {% for error in logform.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ logform.password.label }}<br>
+                        {{ logform.password(size=32) }}<br>
+                        {% for error in logform.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ logform.remember_me() }} {{ logform.remember_me.label }}</p>
+                    <p>{{ logform.submit() }}</p>
+                </form>
+
+                <div class="swapForms">Don't have a Stat Nexus account? <span class="swapFormsButton" onclick="showRegister()">Click here</span> to register. </div>
+            </div>
+        </div>
+        <div style="position:absolute; right: 50%; height: 100%;">
+            <div id="register">
+                <form action="{{ url_for('register') }}" method="post" novalidate>
+                    {{ regform.hidden_tag() }}
+                    <p>
+                        {{ regform.username.label }}<br>
+                        {{ regform.username(size=32) }}<br>
+                        {% for error in regform.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ regform.email.label }}<br>
+                        {{ regform.email(size=64) }}<br>
+                        {% for error in regform.email.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ regform.password.label }}<br>
+                        {{ regform.password(size=32) }}<br>
+                        {% for error in regform.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ regform.password2.label }}<br>
+                        {{ regform.password2(size=32) }}<br>
+                        {% for error in regform.password2.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ regform.submit() }}</p>
+                </form>
+                <div class="swapForms">Already have a Stat Nexus account? <span class="swapFormsButton" onclick="showLogin()">Click here</span> to register. </div>
+            </div>
         </div>
         <div id="backgroundOverlay" onclick="hideLogin()"></div>
     </div>
