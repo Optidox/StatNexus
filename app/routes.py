@@ -1,11 +1,11 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request, abort, session
 from app.forms import LoginForm, RegistrationForm
-from flask_login import current_user, login_user, logout_user
-from app.models import User
+from flask_login import current_user, login_user, logout_user, login_required
+from app.models import User, Osu, Bungie
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
-from app.osu_api import make_auth_url, check_state, get_tokens
+from app.auth import make_auth_url, check_state, get_tokens
 import time
 
 
@@ -18,8 +18,8 @@ def index():
     registration_form = RegistrationForm()
     return render_template('index.html', logform=login_form, regform=registration_form)
 
-
 @app.route('/profile')
+@login_required
 def profile():
     user_games = [
                     {
@@ -142,7 +142,7 @@ def register():
 
 @app.route('/osulogin', methods=['GET', 'POST'])
 def osu_login():
-    return redirect(make_auth_url())
+    return redirect(make_auth_url('osu'))
 
 
 @app.route('/osucallback')
@@ -150,5 +150,49 @@ def osu_callback():
     state = request.args.get('state', '')
     if not check_state(state):
         abort(403)
-    token_info = get_tokens(request.args.get('code'))
+    token_info = get_tokens(request.args.get('code'), 'osu')
     expiration_time = int(token_info['expires_in']) + int(time.time())
+    access_token = token_info['access_token']
+    refresh_token = token_info['refresh_token']
+    if Osu.query.get(current_user.id) is None:
+        new_osu = Osu(id=current_user.id,
+                      access_token=access_token,
+                      refresh_token=refresh_token,
+                      expiration_time=expiration_time)
+        db.session.add(new_osu)
+    else:
+        updated_osu = Osu.query.get(current_user.id)
+        updated_osu.access_token = access_token
+        updated_osu.refresh_token = refresh_token
+        updated_osu.expiration_time = expiration_time
+    db.session.commit()
+    return redirect(url_for('profile'))
+
+
+@app.route('/bungielogin', methods=['GET', 'POST'])
+def bungie_login():
+    return redirect(make_auth_url('bungie'))
+
+
+@app.route('/bungiecallback')
+def bungie_callback():
+    state = request.args.get('state', '')
+    if not check_state(state):
+        abort(403)
+    token_info = get_tokens(request.args.get('code'), 'bungie')
+    expiration_time = int(token_info['expires_in']) + int(time.time())
+    access_token = token_info['access_token']
+    refresh_token = token_info['refresh_token']
+    if Bungie.query.get(current_user.id) is None:
+        new_bungie = Bungie(id=current_user.id,
+                      access_token=access_token,
+                      refresh_token=refresh_token,
+                      expiration_time=expiration_time)
+        db.session.add(new_bungie)
+    else:
+        updated_bungie = Bungie.query.get(current_user.id)
+        updated_bungie.access_token = access_token
+        updated_bungie.refresh_token = refresh_token
+        updated_bungie.expiration_time = expiration_time
+    db.session.commit()
+    return redirect(url_for('profile'))

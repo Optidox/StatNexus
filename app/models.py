@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     League = db.relationship('League', backref='league_id', lazy=True)
-    Destiny = db.relationship('Destiny', backref='destiny_id', lazy=True)
+    Bungie = db.relationship('Bungie', backref='destiny_id', lazy=True)
     Osu = db.relationship('Osu', backref='osu_id', lazy=True)
 
     def __repr__(self):
@@ -38,7 +38,7 @@ class League(db.Model):
     expiration_time = db.Column(db.Integer)
 
 
-class Destiny(db.Model):
+class Bungie(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     access_token = db.Column(db.String(256))
     refresh_token = db.Column(db.String(256))
