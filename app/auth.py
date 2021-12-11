@@ -19,14 +19,14 @@ def _make_auth_headers():
 
 def _refresh_token(api):
     if api == 'osu':
-        data = Osu.query.get(id=current_user.id)
+        data = Osu.query.get(current_user.id)
         payload = { 'grant_type': 'refresh_token',
                     'client_id': os.environ.get('OSU_CLIENT_ID'),
                     'client_secret': os.environ.get('OSU_CLIENT_SECRET'),
                     'refresh_token': data.refresh_token }
         response = requests.post('https://osu.ppy.sh/oauth/token', data=payload)
     elif api == 'bungie':
-        data = Bungie.query.get(id=current_user.id)
+        data = Bungie.query.get(current_user.id)
         payload = { 'grant_type': 'refresh_token',
                     'refresh_token': data.refresh_token }
         response = requests.post('https://www.bungie.net/platform/app/oauth/token/', data=payload, headers=_make_auth_headers())
@@ -90,8 +90,8 @@ def get_tokens(code, api):
 
 def check_token(api):
     if api == 'osu':
-        if Osu.query.get(id=current_user.id).expiration_time <= int(time.time()):
+        if Osu.query.get(current_user.id).expiration_time <= int(time.time()):
             _refresh_token('osu')
     elif api == 'bungie':
-        if Bungie.query.get(id=current_user.id).expiration_time <= int(time.time()):
+        if Bungie.query.get(current_user.id).expiration_time <= int(time.time()):
             _refresh_token('bungie')
