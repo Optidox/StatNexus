@@ -167,6 +167,8 @@ def osu_login():
 
 @app.route('/osucallback')
 def osu_callback():
+    if request.args.get('error') is not None:
+        return redirect(url_for('profile'))
     state = request.args.get('state', '')
     if not check_state(state):
         abort(403)
