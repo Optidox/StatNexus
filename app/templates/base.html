@@ -11,7 +11,7 @@
             border:0;
             outline:0;
             color:rgb(245,245,245);
-            background-color:rgb(24,25,26);
+            background-color:#222629;
             overflow: hidden;
             font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
         }
@@ -75,6 +75,22 @@
             background-color:rgb(38,40,43);
             transition: 0.2s;
         }
+
+        #profileButton {
+            display: flex;
+            position: relative;
+            margin: 0 auto;
+            padding: 0 10px;
+            transition: 0.2s;
+            align-items: center;
+            height: 100%;
+        }
+
+        #profileButton:hover {
+            background-color:rgb(38,40,43);
+            transition: 0.2s;
+        }
+
         .hamburger {
             width: 18px;
             height: 3px;
@@ -88,7 +104,7 @@
         .sideButton {
             display:flex;
             height:50px;
-            width:70px;
+            width:100%;
             justify-content:center;
             align-items:center;
             transition: 0.2s;
@@ -97,6 +113,19 @@
         .sideButton:hover {
             background-color:rgb(38,40,43);
             transition: 0.2s;
+        }
+
+        .sideButtonText {
+            display:none;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s, opacity 0.3s linear;
+        }
+
+        .buttonLink {
+            color:inherit; 
+            text-decoration:none; 
+            width:100%;
         }
 
         .logo {
@@ -213,8 +242,28 @@
 
     <script language="javascript">
         function toggleSideNav() {
-            let sideMenu = document.getElementById("sideMenu");
-            console.log(sideMenu.innerHTML);
+            let text = document.getElementsByClassName("sideButtonText");
+            console.log(text.length);
+            if ($( "#sideMenu" ).width() == 70) {
+                $( "#sideMenu" ).width(180);
+                for (let i = 0; i < text.length; i++) {
+                    text[i].style.display = "block";
+                    text[i].style.visibility = "visible";
+                    text[i].style.opacity = 1;
+                }
+            } else {
+                $( "#sideMenu" ).width(70);
+                for (let i = 0; i < text.length; i++) {
+                    text[i].style.visibility = "hidden";
+                    text[i].style.opacity = 0;
+                    // await sleep(300);
+                    text[i].style.display = "none";
+                }
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
     </script>
 </head>
@@ -226,13 +275,18 @@
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
             </div>
+            <a href="{{ url_for('profile') }}" class="buttonLink" style="margin:0 auto; width:unset">
+                <div id="profileButton">
+                    Profile
+                </div>
+            </a>
             <!-- Need to add links, how do I do that with the routes? -->
             <div class="iconDropdown">
                 <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
                 <i class="arrow down"></i>
                 <div id="dropdown">
                     <div class="dropdownContent">
-                        <a href="{{ url_for('logout') }}" style="color:inherit; text-decoration:none; width:100%;">
+                        <a href="{{ url_for('logout') }}" class="buttonLink">
                             <div class="dropdownButton">
                                 Sign out
                             </div>
@@ -243,12 +297,24 @@
         </div>
         <div class="withoutheader">
             <div id="sideMenu">
-                <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
-                <div class="sideButton">2</div>
-                <div class="sideButton">3</div>
-                <div class="sideButton">4</div>
-                <div class="sideButton" style="position:absolute; bottom:20px;">
-                    <img id="siteLogo" src="../static/images/logo-placeholder.png" /> 
+                <a href="{{ url_for('league') }}" class="buttonLink">
+                    <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/>
+                        <div class="sideButtonText">League of Legends</div>
+                    </div>
+                </a>
+                <a href="{{ url_for('osu') }}" class="buttonLink">
+                    <div class="sideButton"><img class="logo" src="../static/images/osu_icon.png" alt="osu!"/>
+                        <div class="sideButtonText">osu!</div>
+                    </div>
+                </a>
+                <a href="{{ url_for('destiny') }}" class="buttonLink">
+                    <div class="sideButton"><img class="logo" src="../static/images/destiny_icon.png" alt="Destiny"/>
+                        <div class="sideButtonText">Destiny</div>
+                    </div>
+                </a>
+                <!-- <div class="sideButton">4</div> -->
+                <div class="sideButton" style="position:absolute; bottom:20px; width:70px;">
+                    <img id="siteLogo" src="../static/images/logo-placeholder.png"/> 
                 </div>
             </div>
 
