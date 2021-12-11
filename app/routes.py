@@ -6,6 +6,7 @@ from app.models import User, Osu, Bungie
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
+from app.osu_api import format_osu_stats
 import time
 
 
@@ -49,7 +50,7 @@ def profile():
                 ]
     username = "my_user"
 
-    return render_template('profile.html', username=username, game_data=user_games)
+    return render_template('profile.html', username=current_user.username, game_data=user_games)
 
 
 @app.route('/contact')
@@ -91,15 +92,19 @@ def destiny():
                     },
                 ]
                 
-    return render_template('game.html', game_data = game_data, stat_data = stat_data)
+    return render_template('game.html', game_data=game_data, stat_data=stat_data)
 
 
 @app.route('/osu')
 def osu():
-    return render_template('osu.html')
+    game_data = {
+        'name': 'osu!',
+        'logo_path': '../static/images/osu_icon.png'
+    }
+    return render_template('game.html', game_data=game_data, stat_data=format_osu_stats())
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
@@ -125,7 +130,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
@@ -140,7 +145,7 @@ def register():
     return render_template('index.html', logform=login_form, regform=registration_form)
 
 
-@app.route('/osulogin', methods=['GET', 'POST'])
+@app.route('/osulogin', methods=['POST'])
 def osu_login():
     return redirect(make_auth_url('osu'))
 
@@ -169,7 +174,7 @@ def osu_callback():
     return redirect(url_for('profile'))
 
 
-@app.route('/bungielogin', methods=['GET', 'POST'])
+@app.route('/bungielogin', methods=['POST'])
 def bungie_login():
     return redirect(make_auth_url('bungie'))
 
