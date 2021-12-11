@@ -75,7 +75,7 @@ def destiny():
                         "stat_info": "1.07",
                     },
                     { 
-                        "stat_title": "PVP KDA",
+                        "stat_title": "PVE KDA",
                         "stat_info": "3.75",
                     },
                     { 
