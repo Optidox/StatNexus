@@ -178,6 +178,10 @@
             text-decoration:underline;
             color:rgb(238, 108, 108);
         }
+
+        #flashed {
+            color: #f5f5f5;
+        }
     </style>
 
     <script language="javascript">
@@ -229,6 +233,17 @@
             </p>
             <div id="loginButton" onclick="showLogin()">
                 Sign In
+            </div>
+            <div id=flashed>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
             </div>
         </div>
         <div class="loginRegWrapper">
@@ -294,6 +309,8 @@
             </div>
         </div>
         <div id="backgroundOverlay" onclick="hideLogin()"></div>
+
+        
     </div>
 </body>
 </html>
