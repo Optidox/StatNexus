@@ -30,7 +30,8 @@ def format_osu_stats():
     stat_list.append({ 'stat_title': 'Accuracy', 'stat_info': str(stat_json['hit_accuracy']) + '%'})
     stat_list.append({ 'stat_title': 'Max Combo', 'stat_info': stat_json['maximum_combo']})
     stat_list.append({ 'stat_title': 'Play Count', 'stat_info': stat_json['play_count']})
-    stat_list.append({ 'stat_title': 'Play Time', 'stat_info': str(stat_json['play_time'] // 3600) + ' hrs ' + str((stat_json['play_time'] // 60) % 60) + ' mins'})
+    stat_list.append({ 'stat_title': 'Play Time', 'stat_info': str(stat_json['play_time'] // 3600) + ' hrs '
+                                                               + str((stat_json['play_time'] // 60) % 60) + ' mins'})
     stat_list.append({ 'stat_title': 'Total Score', 'stat_info': stat_json['total_score']})
     stat_list.append({ 'stat_title': 'Total Hits', 'stat_info': stat_json['total_hits']})
     return stat_list
