@@ -145,7 +145,7 @@ def register():
     return render_template('index.html', logform=login_form, regform=registration_form)
 
 
-@app.route('/osulogin', methods=['POST'])
+@app.route('/osulogin', methods=['GET', 'POST'])
 def osu_login():
     return redirect(make_auth_url('osu'))
 
@@ -174,7 +174,7 @@ def osu_callback():
     return redirect(url_for('profile'))
 
 
-@app.route('/bungielogin', methods=['POST'])
+@app.route('/bungielogin', methods=['GET', 'POST'])
 def bungie_login():
     return redirect(make_auth_url('bungie'))
 
