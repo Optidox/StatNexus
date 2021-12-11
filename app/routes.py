@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request, abort, session
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, LeagueForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Osu, Bungie
+from app.models import User, Osu, Bungie, League
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
@@ -58,12 +58,21 @@ def contact():
     return render_template('contact.html')
 
 
-@app.route('/league')
+@app.route('/league', methods=['GET', 'POST'])
+@login_required
 def league():
-    return render_template('league.html')
+    form = LeagueForm()
+    if form.validate_on_submit():
+        new_league = League(id=current_user.id, username=form.username.data)
+        db.session.add(new_league)
+        db.session.commit()
+    if League.query.get(current_user.id) is None:
+        return render_template('league.html', form=form)
+    return redirect(url_for('profile'))
 
 
 @app.route('/destiny')
+@login_required
 def destiny():
     game_data = {
                     "name": "Destiny 2",
@@ -96,7 +105,11 @@ def destiny():
 
 
 @app.route('/osu')
+@login_required
 def osu():
+    if Osu.query.get(current_user.id) is None:
+        return redirect(url_for('osu_login'))
+
     game_data = {
         'name': 'osu!',
         'logo_path': '../static/images/osu_icon.png'
@@ -125,6 +138,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -146,6 +160,7 @@ def register():
 
 
 @app.route('/osulogin', methods=['GET', 'POST'])
+@login_required
 def osu_login():
     return redirect(make_auth_url('osu'))
 
@@ -175,6 +190,7 @@ def osu_callback():
 
 
 @app.route('/bungielogin', methods=['GET', 'POST'])
+@login_required
 def bungie_login():
     return redirect(make_auth_url('bungie'))
 

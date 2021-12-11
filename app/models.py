@@ -33,9 +33,7 @@ def load_user(uid):
 
 class League(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    access_token = db.Column(db.String(256))
-    refresh_token = db.Column(db.String(256))
-    expiration_time = db.Column(db.Integer)
+    username = db.Column(db.String(16))
 
 
 class Bungie(db.Model):
