@@ -7,6 +7,7 @@ from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
 from app.osu_api import format_osu_stats
+from app.bungie_api import get_historical_stats
 import time
 
 
@@ -74,6 +75,9 @@ def league():
 @app.route('/destiny')
 @login_required
 def destiny():
+    if Bungie.query.get(current_user.id) is None:
+        return redirect(url_for('bungie_login'))
+    get_historical_stats()
     game_data = {
                     "name": "Destiny 2",
                     "logo_path": "../static/images/destiny_icon.png",
