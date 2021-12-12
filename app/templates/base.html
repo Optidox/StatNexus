@@ -16,26 +16,51 @@
             font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
         }
 
+        
+
         .fullpage {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            height: 100%;
+            height: 100vh;
         }
 
         .withoutheader {
             display: flex;
             flex-direction: row;
-            min-height: 400px;
+            min-height: 250px;
             flex: 1 1 auto;
         }
 
         .content {
             display: flex;
-            margin:30px;
+            padding:30px;
             left:70px;
             justify-content: center;
             flex:1;
+            overflow:auto;
+            scrollbar-width:thin;
+            scrollbar-color:#26282b #4b4f55;
+        }
+        
+        @media screen and (max-width: 775px) {
+            .content {
+                padding:5px;
+            }
+        }
+
+
+        .content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background-color: #474b4f;
+            border-radius: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background-color: #727578;
+            border-radius: 10px;
         }
 
         .header {
@@ -45,14 +70,15 @@
             display:flex;
             width:100%;
             height:50px;
+            min-height:50px;
             top:0;
             box-shadow: 5px 5px 3px rgb(16,17,18);
             flex: 0 1 auto;
         }
 
         #sideMenu {
-            min-height:400px;
-            width:70px;
+            min-height:250px;
+            width:0px;
             background-color:rgb(74,62,81);
             box-shadow: 5px 5px 3px rgb(16,17,18);
             display:flex;
@@ -129,14 +155,51 @@
         }
 
         .logo {
-            height:40px;
+            width: 57%;
+        }
+        
+        #siteLogoContact {
+            display:flex;
+            height:50px;
+            width:100%;
+            justify-content:center;
+            align-items:center;
+        }
+        #siteLogo {
+            object-fit: cover;
+            width: 78%;
         }
 
-        #siteLogo {
-            height:55px;
-            width:55px;
-            object-fit: cover;
+        #siteLogoContact #popupText {
+            visibility: hidden;
+            width: 200px;
+            background-color: #292d33;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            bottom: 31px;
+            left: 60px;
+            5px 5px 3px rgb(16,17,18);
+        }
 
+        #siteLogoContact:hover #popupText {
+            visibility: visible;
+        }
+
+        #siteLogoContact #popupText::after {
+            content: " ";
+            position: absolute;
+            bottom:10px;
+            right: 100%; /* To the left of the tooltip */
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #292d33 transparent transparent;
         }
 
         .iconDropdown {
@@ -242,23 +305,29 @@
 
     <script language="javascript">
         function toggleSideNav() {
-            let text = document.getElementsByClassName("sideButtonText");
-            console.log(text.length);
-            if ($( "#sideMenu" ).width() == 70) {
-                $( "#sideMenu" ).width(180);
-                for (let i = 0; i < text.length; i++) {
-                    text[i].style.display = "block";
-                    text[i].style.visibility = "visible";
-                    text[i].style.opacity = 1;
-                }
-            } else {
+            // let text = document.getElementsByClassName("sideButtonText");
+            // console.log(text.length);
+            // if ($( "#sideMenu" ).width() == 70) {
+            //     $( "#sideMenu" ).width(180);
+            //     for (let i = 0; i < text.length; i++) {
+            //         text[i].style.display = "block";
+            //         text[i].style.visibility = "visible";
+            //         text[i].style.opacity = 1;
+            //     }
+            // } else {
+            //     $( "#sideMenu" ).width(70);
+            //     for (let i = 0; i < text.length; i++) {
+            //         text[i].style.visibility = "hidden";
+            //         text[i].style.opacity = 0;
+            //         // await sleep(300);
+            //         text[i].style.display = "none";
+            //     }
+            // }
+
+            if ($( "#sideMenu" ).width() == 0) {
                 $( "#sideMenu" ).width(70);
-                for (let i = 0; i < text.length; i++) {
-                    text[i].style.visibility = "hidden";
-                    text[i].style.opacity = 0;
-                    // await sleep(300);
-                    text[i].style.display = "none";
-                }
+            } else {
+                $( "#sideMenu" ).width(0);
             }
         }
 
@@ -270,7 +339,7 @@
 <body>
     <div class="fullpage">
         <div class="header">
-            <div id="menuIcon" onclick="toggleSideNav()">
+            <div id="menuIcon" onclick="toggleSideNav()" style="cursor:pointer">
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
@@ -298,23 +367,18 @@
         <div class="withoutheader">
             <div id="sideMenu">
                 <a href="{{ url_for('league') }}" class="buttonLink">
-                    <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/>
-                        <div class="sideButtonText">League of Legends</div>
-                    </div>
+                    <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
                 </a>
                 <a href="{{ url_for('osu') }}" class="buttonLink">
-                    <div class="sideButton"><img class="logo" src="../static/images/osu_icon.png" alt="osu!"/>
-                        <div class="sideButtonText">osu!</div>
-                    </div>
+                    <div class="sideButton"><img class="logo" src="../static/images/osu_icon.png" alt="osu!"/></div>
                 </a>
                 <a href="{{ url_for('destiny') }}" class="buttonLink">
-                    <div class="sideButton"><img class="logo" src="../static/images/destiny_icon.png" alt="Destiny"/>
-                        <div class="sideButtonText">Destiny</div>
-                    </div>
+                    <div class="sideButton"><img class="logo" src="../static/images/destiny_icon.png" alt="Destiny"/></div>
                 </a>
                 <!-- <div class="sideButton">4</div> -->
-                <div class="sideButton" style="position:absolute; bottom:20px; width:70px;">
-                    <img id="siteLogo" src="../static/images/logo-placeholder.png"/> 
+                <div id="siteLogoContact" style="margin-top: auto; margin-bottom:20px;">
+                    <img id="siteLogo" src="../static/images/logo-placeholder.png"/>
+                    <div id="popupText">Have any questions or suggestions? Send us an email at statnex.us@gmail.com!</div>
                 </div>
             </div>
 
