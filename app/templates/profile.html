@@ -116,10 +116,10 @@
             </div>
             <div id = "text" class = "summary_card_text_block">
                 <p class = "summary_card_title">{{ game }}</p>
-                {% if 'stat1_title' in info %}
-                    <p class = "summary_card_stat"><b>{{ info.stat1_title }}:</b> {{ info.stat1_info }}</p>
-                    <p class = "summary_card_stat"><b>{{ info.stat2_title }}:</b> {{ info.stat2_info }} </p>
-                    <p class = "summary_card_stat"><b>{{ info.stat3_title }}:</b> {{ info.stat3_info }} </p>
+                {% if 'stats' in info %}
+                    {% for stat, value in info['stats'].items() %}
+                        <p class = "summary_card_stat"><b>{{ stat }}:</b> {{ value }}</p>
+                    {% endfor %}
                 {% else %}
                     <p class = "summary_card_stat"><b>Sign in with {{ game }}</b></p>
                 {% endif %}

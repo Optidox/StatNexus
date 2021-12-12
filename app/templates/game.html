@@ -103,11 +103,11 @@
         <div id=game_name>{{ game_data.name }}</div>
     </div>
     <div class = "grid-container">
-        {% for stat in stat_data %}
+        {% for stat, value in stat_data.items() %}
             <div class = "stat_card">
-                <p class = "stat_card_title">{{ stat.stat_title }}</p>
+                <p class = "stat_card_title">{{ stat }}</p>
                 <hr class = "break_line">
-                <p class = "stat_card_info">{{ stat.stat_info }}</p>
+                <p class = "stat_card_info">{{ value }}</p>
             </div>
         {% endfor %}
     </div>

@@ -6,8 +6,8 @@ from app.models import User, Osu, Bungie, League
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
-from app.osu_api import format_osu_stats, get_osu_profile_card
-from app.bungie_api import get_historical_stats
+from app.osu_api import get_osu_stats, get_osu_profile_card
+from app.bungie_api import get_destiny_stats, get_destiny_profile_card
 import time
 
 
@@ -40,6 +40,8 @@ def profile():
     }
     if Osu.query.get(current_user.id) is not None:
         user_games['osu!'] = user_games['osu!'] | get_osu_profile_card()
+    if Bungie.query.get(current_user.id) is not None:
+        user_games['Destiny 2'] = user_games['Destiny 2'] | get_destiny_profile_card()
     return render_template('profile.html', username=current_user.username, game_data=user_games)
 
 
@@ -66,34 +68,12 @@ def league():
 def destiny():
     if Bungie.query.get(current_user.id) is None:
         return redirect(url_for('bungie_login'))
+    
     game_data = {
                     "name": "Destiny 2",
                     "logo_path": "../static/images/destiny_icon.png",
                 }
-    stat_data = [
-                    { 
-                        "stat_title": "PVP KDA",
-                        "stat_info": "1.07",
-                    },
-                    { 
-                        "stat_title": "PVE KDA",
-                        "stat_info": "3.75",
-                    },
-                    { 
-                        "stat_title": "Vault of Glass Clears",
-                        "stat_info": "14",
-                    },
-                    { 
-                        "stat_title": "Last Wish Clears",
-                        "stat_info": "15",
-                    },
-                    { 
-                        "stat_title": "Garden of Salvation Clears",
-                        "stat_info": "6",
-                    },
-                ]
-                
-    return render_template('game.html', game_data=game_data, stat_data=stat_data)
+    return render_template('game.html', game_data=game_data, stat_data=get_destiny_stats())
 
 
 @app.route('/osu')
@@ -106,7 +86,7 @@ def osu():
         'name': 'osu!',
         'logo_path': '../static/images/osu_icon.png'
     }
-    return render_template('game.html', game_data=game_data, stat_data=format_osu_stats())
+    return render_template('game.html', game_data=game_data, stat_data=get_osu_stats())
 
 
 @app.route('/login', methods=['POST'])
