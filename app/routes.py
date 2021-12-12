@@ -19,6 +19,7 @@ def index():
     registration_form = RegistrationForm()
     return render_template('index.html', logform=login_form, regform=registration_form)
 
+
 @app.route('/profile')
 @login_required
 def profile():
