@@ -6,7 +6,7 @@ from app.models import User, Osu, Bungie, League
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
-from app.osu_api import format_osu_stats
+from app.osu_api import format_osu_stats, get_osu_profile_card
 from app.bungie_api import get_historical_stats
 import time
 
@@ -24,34 +24,22 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    user_games = [
-                    {
-                        "name": "Destiny 2",
+    user_games = {
+                    'Destiny 2': {
                         "logo_path": "../static/images/destiny_icon.png",
-                        "stat1_title": "PVP KDA",
-                        "stat2_title": "PVE KDA",
-                        "stat1_info": "1.07",
-                        "stat2_info": "3.09",
+                        "path": "destiny",
                     },
-                    {
-                        "name": "League of Legends",
+                    'League of Legends': {
                         "logo_path": "../static/images/league_of_legends_icon.png",
-                        "stat1_title": "Stat 1",
-                        "stat2_title": "Stat 2",
-                        "stat1_info": "Stat info",
-                        "stat2_info": "Stat info",
+                        "path": "league",
                     },
-                    {
-                        "name": "OSU",
+                    'osu!': {
                         "logo_path": "../static/images/osu_icon.png",
-                        "stat1_title": "Stat 1",
-                        "stat2_title": "Stat 2",
-                        "stat1_info": "Stat info",
-                        "stat2_info": "Stat info",
-                    },
-                ]
-    username = "my_user"
-
+                        "path": "osu",
+                    }
+    }
+    if Osu.query.get(current_user.id) is not None:
+        user_games['osu!'] = user_games['osu!'] | get_osu_profile_card()
     return render_template('profile.html', username=current_user.username, game_data=user_games)
 
 
@@ -78,7 +66,6 @@ def league():
 def destiny():
     if Bungie.query.get(current_user.id) is None:
         return redirect(url_for('bungie_login'))
-    get_historical_stats()
     game_data = {
                     "name": "Destiny 2",
                     "logo_path": "../static/images/destiny_icon.png",

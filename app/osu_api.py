@@ -22,7 +22,8 @@ def format_osu_stats():
     user_json = _get_user()
     stat_json = user_json['statistics']
     stat_list.append({ 'stat_title': 'Username', 'stat_info': user_json['username']})
-    stat_list.append({ 'stat_title': 'Level', 'stat_info': stat_json['level']['current']})
+    stat_list.append({ 'stat_title': 'Level', 'stat_info': str(stat_json['level']['current']) + '.'
+                                                           + str(stat_json['level']['progress'])})
     stat_list.append({ 'stat_title': 'Ranked Score', 'stat_info': stat_json['ranked_score']})
     stat_list.append({ 'stat_title': 'pp', 'stat_info': stat_json['pp']})
     stat_list.append({ 'stat_title': 'Global Rank', 'stat_info': stat_json['global_rank']})
@@ -35,3 +36,16 @@ def format_osu_stats():
     stat_list.append({ 'stat_title': 'Total Score', 'stat_info': stat_json['total_score']})
     stat_list.append({ 'stat_title': 'Total Hits', 'stat_info': stat_json['total_hits']})
     return stat_list
+
+def get_osu_profile_card():
+    user_json = _get_user()
+    stat_json = user_json['statistics']
+    return {
+        'stat1_title':   'Global Rank',
+        'stat1_info' :   stat_json['global_rank'],
+        'stat2_title':   'pp',
+        'stat2_info' :   stat_json['pp'],
+        'stat3_title':   'Play Time',
+        'stat3_info' :   str(stat_json['play_time'] // 3600) + ' hrs '
+                       + str((stat_json['play_time'] // 60) % 60) + ' mins'
+    }
