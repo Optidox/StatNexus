@@ -1,10 +1,29 @@
 <html>
 <head>
     <style>
-        html, body {
+        html {
             margin: 0; 
             height: 100%; 
-            overflow: hidden
+            overflow: hidden;
+        }
+        body {
+            margin: 0; 
+            height: 100%; 
+            /* overflow: hidden; */
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: #474b4f;
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #727578;
+            border-radius: 10px;
         }
 
         .wrapper {
@@ -15,8 +34,13 @@
             margin:0;
             display:flex;
             background-size: cover;
-            /* background-attachment: fixed;
-            background-repeat:no-repeat; */
+            /* background-image: url('space.jpeg'); */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            overflow:auto;
+            scrollbar-width:thin;
+            scrollbar-color:#26282b #4b4f55;
         }
 
         .text {
@@ -128,6 +152,12 @@
             }
         }
 
+        /* @media screen and (max-height: 700px) {
+            .subtitle {
+                display: none;
+            }
+        } */
+
         #backgroundOverlay{
             background-color:transparent;
             position:fixed;
@@ -229,11 +259,10 @@
                 Stat Nexus
             </h1>
             <h2>
-                Make finding your stats easier than ever
+                Your one stop for stat tracking
             </h2>
-            <p>
-                Find the stats for all of your favorite games in one place, 
-                whether you're interested in one or many games.
+            <p class = "subtitle">
+                Find the stats for all of your favorite games in one place.
             </p>
             <div id="loginButton" onclick="showLogin()">
                 Sign In

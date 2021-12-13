@@ -46,6 +46,18 @@
             .content {
                 padding:5px;
             }
+            #sideMenu {
+                min-height:250px;
+                width:0px;
+                background-color:rgb(74,62,81);
+                box-shadow: 5px 5px 3px rgb(16,17,18);
+                display:flex;
+                flex-direction: column;
+                position: fixed;
+                /* z-index: 2; */
+                transition: width .3s ease;
+                /* height: auto; */
+            }
         }
 
 
@@ -184,7 +196,7 @@
             z-index: 1;
             bottom: 31px;
             left: 60px;
-            5px 5px 3px rgb(16,17,18);
+            border: 5px 5px 3px rgb(16,17,18);
         }
 
         #siteLogoContact:hover #popupText {
