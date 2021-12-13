@@ -38,13 +38,13 @@ class League(db.Model):
 
 class Bungie(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    access_token = db.Column(db.String(256))
-    refresh_token = db.Column(db.String(256))
+    access_token = db.Column(db.String(2048))
+    refresh_token = db.Column(db.String(1024))
     expiration_time = db.Column(db.Integer)
 
 
 class Osu(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    access_token = db.Column(db.String(256))
-    refresh_token = db.Column(db.String(256))
+    access_token = db.Column(db.String(2048))
+    refresh_token = db.Column(db.String(1024))
     expiration_time = db.Column(db.Integer)
