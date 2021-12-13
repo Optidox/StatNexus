@@ -23,7 +23,7 @@ def get_osu_stats():
     stat_list = {'Username': user_json['username'],
                  'Level': str(stat_json['level']['current']) + '.' + str(stat_json['level']['progress']),
                  'Ranked Score': stat_json['ranked_score'],
-                 'stat_title': stat_json['pp'],
+                 'pp': stat_json['pp'],
                  'Global Rank': stat_json['global_rank'],
                  'Country Rank': stat_json['country_rank'],
                  'Accuracy': str(stat_json['hit_accuracy']) + '%',
