@@ -9,6 +9,7 @@ from app.auth import make_auth_url, check_state, get_tokens
 from app.osu_api import get_osu_stats, get_osu_profile_card
 from app.bungie_api import get_destiny_stats, get_destiny_profile_card
 from app.riot_api import get_league_stats
+from urllib3.exceptions import TimeoutError
 import requests
 import time
 
@@ -63,7 +64,7 @@ def league():
         return render_template('league.html', form=form)
     print(League.query.get(current_user.id).username)
     get_league_stats(League.query.get(current_user.id).username)
-    return render_template('league.html', form=form)
+    return redirect(url_for('profile'))
 
 
 @app.route('/destiny')
@@ -132,7 +133,10 @@ def register():
         user.set_password(regform.password.data)
         db.session.add(user)
         db.session.commit()
-        response = requests.get('https://statnexusmailer.herokuapp.com/?email=' + regform.email.data + '&subject=StatNexus%20Registration&text=Thank%20you%20for%20signing%20up%20for%20StatNexus%21')
+        try:
+            response = requests.get('https://statnexusmailer.herokuapp.com/?email=' + regform.email.data + '&subject=StatNexus%20Registration&text=Thank%20you%20for%20signing%20up%20for%20StatNexus%21')
+        except Exception as e:
+            pass
         return redirect(url_for('index'))
     return render_template('index.html', logform=logform, regform=regform)
 
