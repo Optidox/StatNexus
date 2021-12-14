@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
 from app.osu_api import get_osu_stats, get_osu_profile_card
 from app.bungie_api import get_destiny_stats, get_destiny_profile_card
+from app.riot_api import get_league_stats
 import time
 
 
@@ -56,9 +57,12 @@ def league():
         new_league = League(id=current_user.id, username=form.username.data)
         db.session.add(new_league)
         db.session.commit()
+        return redirect(url_for('league'))
     if League.query.get(current_user.id) is None:
         return render_template('league.html', form=form)
-    return redirect(url_for('profile'))
+    print(League.query.get(current_user.id).username)
+    get_league_stats(League.query.get(current_user.id).username)
+    return render_template('league.html', form=form)
 
 
 @app.route('/destiny')

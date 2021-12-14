@@ -20,7 +20,8 @@ def _get_access_token():
     return Bungie.query.get(current_user.id).access_token
 
 def _get_membership_data():
-    response = requests.get('https://www.bungie.net/Platform/User/GetMembershipsForCurrentUser/', headers=_get_headers())
+    response = requests.get('https://www.bungie.net/Platform/User/GetMembershipsForCurrentUser/', 
+                             headers=_get_headers())
     data = response.json()
     mem_type = data['Response']['destinyMemberships'][0]['membershipType']
     mem_id = data['Response']['destinyMemberships'][0]['membershipId']
