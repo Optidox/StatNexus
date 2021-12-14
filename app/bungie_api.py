@@ -1,6 +1,7 @@
 from app import app, db
 from app.auth import check_token
 from app.models import Bungie
+from app.helpers import add_commas
 from flask_login import current_user
 import os
 import requests
@@ -107,6 +108,9 @@ def get_destiny_stats():
                                    + str((stat_list['PvE Time Played'] // 60) % 60) + ' mins'
     stat_list['Time Played']     = str(stat_list['Time Played'] // 3600) + ' hrs ' \
                                    + str((stat_list['Time Played'] // 60) % 60) + ' mins'
+    
+    for stat, value in stat_list.items():
+        stat_list[stat] = add_commas(value) if 'Time' not in stat else value
 
     return stat_list
 

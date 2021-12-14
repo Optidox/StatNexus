@@ -149,13 +149,13 @@ def register():
     return render_template('index.html', logform=logform, regform=regform)
 
 
-@app.route('/osulogin', methods=['GET', 'POST'])
+@app.route('/osu/login', methods=['GET', 'POST'])
 @login_required
 def osu_login():
     return redirect(make_auth_url('osu'))
 
 
-@app.route('/osucallback')
+@app.route('/osu/callback')
 def osu_callback():
     if request.args.get('error') is not None:
         return redirect(url_for('profile'))
@@ -181,13 +181,13 @@ def osu_callback():
     return redirect(url_for('profile'))
 
 
-@app.route('/bungielogin', methods=['GET', 'POST'])
+@app.route('/bungie/login', methods=['GET', 'POST'])
 @login_required
 def bungie_login():
     return redirect(make_auth_url('bungie'))
 
 
-@app.route('/bungiecallback')
+@app.route('/bungie/callback')
 def bungie_callback():
     state = request.args.get('state', '')
     if not check_state(state):

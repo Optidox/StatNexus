@@ -46,7 +46,7 @@ def get_league_stats(name):
     return user_stats
 
 def get_league_profile_card():
-    stats = get_league_stats()
+    stats = get_league_stats(League.query.get(current_user.id).username)
     if 'Solo/Duo Rank' in stats:
         return { 'stats':
                      { 'Solo/Duo Rank': stats['Solo/Duo Rank'],
