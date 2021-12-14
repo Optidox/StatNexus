@@ -3,7 +3,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Snow Warning</title>
+    <title>Stat Nexus</title>
     <style>
         body, html {
             margin:0;
@@ -46,33 +46,43 @@
             .content {
                 padding:5px;
             }
+            #sideMenu {
+                min-height:250px;
+                width:0px;
+                display:flex;
+                flex-direction: column;
+                position: fixed;
+                transition: width .3s ease;
+                bottom: 0;
+                top: 50px;
+            }
         }
 
 
         .content::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         .content::-webkit-scrollbar-track {
-            background-color: #474b4f;
-            border-radius: 10px;
+            background-color: transparent;
         }
 
         .content::-webkit-scrollbar-thumb {
-            background-color: #727578;
+            background-color: #474b4f;
             border-radius: 10px;
         }
 
         .header {
             margin-top:0;
             background-color:rgb(74,62,81);
+            background-color: rgb(74,48,81);
             /* position:absolute; */
             display:flex;
             width:100%;
             height:50px;
             min-height:50px;
             top:0;
-            box-shadow: 5px 5px 3px rgb(16,17,18);
+            box-shadow: 2px 5px 3px rgb(16,17,18);
             flex: 0 1 auto;
         }
 
@@ -80,6 +90,7 @@
             min-height:250px;
             width:0px;
             background-color:rgb(74,62,81);
+            background-color: rgb(74,48,81);
             box-shadow: 5px 5px 3px rgb(16,17,18);
             display:flex;
             flex-direction: column;
@@ -110,6 +121,8 @@
             transition: 0.2s;
             align-items: center;
             height: 100%;
+            font-weight:bold;
+            font-size:20px;
         }
 
         #profileButton:hover {
@@ -166,8 +179,10 @@
             align-items:center;
         }
         #siteLogo {
-            object-fit: cover;
+            object-fit: contain;
             width: 78%;
+            border-radius:50%;
+            height:100%;
         }
 
         #siteLogoContact #popupText {
@@ -184,7 +199,7 @@
             z-index: 1;
             bottom: 31px;
             left: 60px;
-            5px 5px 3px rgb(16,17,18);
+            border: 5px 5px 3px rgb(16,17,18);
         }
 
         #siteLogoContact:hover #popupText {
@@ -351,7 +366,7 @@
             </a>
             <!-- Need to add links, how do I do that with the routes? -->
             <div class="iconDropdown">
-                <img id="profileIcon" src="../static/images/khazix poro.jpg" alt="Profile Icon" />
+                <img id="profileIcon" src="../static/images/default_profile_picture.png" alt="Profile Icon" />
                 <i class="arrow down"></i>
                 <div id="dropdown">
                     <div class="dropdownContent">
@@ -366,18 +381,19 @@
         </div>
         <div class="withoutheader">
             <div id="sideMenu">
+                <a href="{{ url_for('destiny') }}" class="buttonLink">
+                    <div class="sideButton"><img class="logo" src="../static/images/destiny_icon.png" alt="Destiny"/></div>
+                </a>
                 <a href="{{ url_for('league') }}" class="buttonLink">
                     <div class="sideButton"><img class="logo" src="../static/images/league_of_legends_icon.png" alt="League of Legends"/></div>
                 </a>
                 <a href="{{ url_for('osu') }}" class="buttonLink">
                     <div class="sideButton"><img class="logo" src="../static/images/osu_icon.png" alt="osu!"/></div>
                 </a>
-                <a href="{{ url_for('destiny') }}" class="buttonLink">
-                    <div class="sideButton"><img class="logo" src="../static/images/destiny_icon.png" alt="Destiny"/></div>
-                </a>
+                
                 <!-- <div class="sideButton">4</div> -->
                 <div id="siteLogoContact" style="margin-top: auto; margin-bottom:20px;">
-                    <img id="siteLogo" src="../static/images/logo-placeholder.png"/>
+                    <img id="siteLogo" src="../static/images/logo.png"/>
                     <div id="popupText">Have any questions or suggestions? Send us an email at statnex.us@gmail.com!</div>
                 </div>
             </div>

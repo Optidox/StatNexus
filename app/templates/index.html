@@ -1,10 +1,32 @@
 <html>
 <head>
     <style>
-        html, body {
+        html {
             margin: 0; 
             height: 100%; 
-            overflow: hidden
+            overflow: hidden;
+        }
+        body {
+            margin: 0; 
+            height: 100%; 
+            /* overflow: hidden; */
+            overflow:auto;
+            scrollbar-width:thin;
+            scrollbar-color:#26282b #4b4f55;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: #474b4f;
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #727578;
+            border-radius: 10px;
         }
 
         .wrapper {
@@ -15,8 +37,13 @@
             margin:0;
             display:flex;
             background-size: cover;
-            /* background-attachment: fixed;
-            background-repeat:no-repeat; */
+            /* background-image: url('space.jpeg'); */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            overflow:auto;
+            scrollbar-width:thin;
+            scrollbar-color:#26282b #4b4f55;
         }
 
         .text {
@@ -77,11 +104,10 @@
             visibility:hidden;
         }
 
-        #login {
+        #login, #register {
             display: flex;
             width: 250px;
             height: 60%;
-            min-height: 300px;
             background-color: #f5f5f5;
             position: relative;
             top: 20%;
@@ -95,47 +121,41 @@
             flex-direction: column;
             align-items: center;
             font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+            min-height:415px;
+            overflow:auto;
+            scrollbar-width:3px;
+            scrollbar-color:#26282b #4b4f55;
         }
 
-        #register {
-            display: flex;
-            width: 250px;
-            height: 60%;
-            min-height: 300px;
-            background-color: #f5f5f5;
-            position: relative;
-            top: 20%;
-            border-radius: 10px;
-            box-shadow: 2px 1px 7px rgb(16 17 18);
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.25s, opacity 0.25s linear;
-            z-index: 1000;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            font-family: 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
-        }
-
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 500px),
+               screen and (max-height:550px) {
             #login, #register {
                 width:75%;
-                height:100%;
+                height:415px;
                 align-self:center;
+                max-width:250px;
+                top:0;
             }
-            .loginRegWrapper {
+            /* .loginRegWrapper {
                 height: 80%
-            }
+            } */
         }
 
+
+        /* @media screen and (max-height: 700px) {
+            .subtitle {
+                display: none;
+            }
+        } */
+
         #backgroundOverlay{
-            background-color:transparent;
             position:fixed;
             top:0;
             left:0;
             right:0;
             bottom:0;
             display:none;
+            background: rgba(0,0,0,.35);
         }
 
         input {
@@ -186,6 +206,11 @@
         #flashed {
             color: #f5f5f5;
         }
+
+        #siteLogo {
+            height:64px;
+            transform:translateY(11px);
+        }
     </style>
 
     <script language="javascript">
@@ -226,14 +251,14 @@
         <div class="text">
             <div style="height:20%"></div>
             <h1>
-                Stat Nexus
+                Stat <img id="siteLogo" src="../static/images/logo.png"/> Nexus
             </h1>
+            
             <h2>
-                Make finding your stats easier than ever
+                Your one stop for stat tracking
             </h2>
-            <p>
-                Find the stats for all of your favorite games in one place, 
-                whether you're interested in one or many games.
+            <p class = "subtitle">
+                Find the stats for all of your favorite games in one place.
             </p>
             <div id="loginButton" onclick="showLogin()">
                 Sign In
