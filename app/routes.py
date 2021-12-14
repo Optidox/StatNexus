@@ -9,6 +9,7 @@ from app.auth import make_auth_url, check_state, get_tokens
 from app.osu_api import get_osu_stats, get_osu_profile_card
 from app.bungie_api import get_destiny_stats, get_destiny_profile_card
 from app.riot_api import get_league_stats
+import requests
 import time
 
 
@@ -136,7 +137,7 @@ def register():
             'subject': 'StatNexus Registration',
             'text': 'Thank you ' + regform.username.data + ' for signing up for StatNexus!'
         }
-        requests.get('https://statnexusmailer.herokuapp.com/', data=email_payload)
+        response = requests.get('https://statnexusmailer.herokuapp.com/', data=email_payload)
         return redirect(url_for('index'))
     return render_template('index.html', logform=logform, regform=regform)
 
