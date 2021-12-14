@@ -10,9 +10,8 @@ def _api_header():
     return {"X-Riot-Token": os.environ.get('RIOT_API_KEY')}
 
 def _get_summoner_id(name):
-    print(_api_header())
-    response = requests.get('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/m0Rn?api_key=RGAPI-322c5214-cddc-406e-982d-d27bd24f6561')
-    print(response)
+    response = requests.get('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + name,
+                            headers=_api_header())
     return response.json()['id']
 
 def get_league_stats(name):
@@ -20,6 +19,7 @@ def get_league_stats(name):
     response = requests.get('https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + id,
                              headers=_api_header())
     ranked_stats = response.json()
+    print(json.dumps(ranked_stats, indent=4))
     response = requests.get('https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/' + id)
     champ_stats = response.json()
     print(json.dumps(champ_stats, indent=4))
