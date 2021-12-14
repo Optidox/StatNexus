@@ -62,9 +62,15 @@ def league():
         return redirect(url_for('league'))
     if League.query.get(current_user.id) is None:
         return render_template('league.html', form=form)
-    print(League.query.get(current_user.id).username)
-    get_league_stats(League.query.get(current_user.id).username)
-    return redirect(url_for('profile'))
+
+    game_data = {
+        "name": "League of Legends",
+        "logo_path": "../static/images/league_of_legends_icon.png",
+    }
+
+    return render_template('game.html',
+                           game_data=game_data,
+                           stat_data=get_league_stats(League.query.get(current_user.id).username))
 
 
 @app.route('/destiny')
