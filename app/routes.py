@@ -132,12 +132,7 @@ def register():
         user.set_password(regform.password.data)
         db.session.add(user)
         db.session.commit()
-        email_payload = {
-            'email': regform.email.data,
-            'subject': 'StatNexus Registration',
-            'text': 'Thank you ' + regform.username.data + ' for signing up for StatNexus!'
-        }
-        response = requests.get('https://statnexusmailer.herokuapp.com/', data=email_payload)
+        response = requests.get('https://statnexusmailer.herokuapp.com/?email=' + regform.email.data + '&subject=StatNexus%20Registration&text=Thank%20you%20for%20signing%20up%20for%20StatNexus%21')
         return redirect(url_for('index'))
     return render_template('index.html', logform=logform, regform=regform)
 
