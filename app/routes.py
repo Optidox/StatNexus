@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash
 from app.auth import make_auth_url, check_state, get_tokens
 from app.osu_api import get_osu_stats, get_osu_profile_card
 from app.bungie_api import get_destiny_stats, get_destiny_profile_card
-from app.riot_api import get_league_stats
+from app.riot_api import get_league_stats, get_league_profile_card
 from urllib3.exceptions import TimeoutError
 import requests
 import time
@@ -43,6 +43,8 @@ def profile():
         user_games['osu!'] = user_games['osu!'] | get_osu_profile_card()
     if Bungie.query.get(current_user.id) is not None:
         user_games['Destiny 2'] = user_games['Destiny 2'] | get_destiny_profile_card()
+    if League.query.get(current_user.id) is not None:
+        user_games['League of Legends'] = user_games['League of Legends'] | get_league_profile_card()
     return render_template('profile.html', username=current_user.username, game_data=user_games)
 
 
