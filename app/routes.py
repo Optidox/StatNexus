@@ -16,9 +16,7 @@ import time
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
-    login_form = LoginForm()
-    registration_form = RegistrationForm()
-    return render_template('index.html', logform=login_form, regform=registration_form)
+    return render_template('index.html', logform=LoginForm(), regform=RegistrationForm())
 
 
 @app.route('/profile')
@@ -93,20 +91,21 @@ def osu():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+    regform = RegistrationForm()
+    logform = LoginForm()
+    if logform.validate_on_submit():
+        user = User.query.filter_by(username=logform.username.data).first()
+        if user is None or not user.check_password(logform.password.data):
             flash('Invalid Username or Password')
             return redirect(url_for('index'))
-        login_user(user, remember=form.remember_me.data)
+        login_user(user, remember=logform.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('profile')
         print(next_page)
         session.permanent = True
         return redirect(next_page)
-    return render_template('index.html', logform=login_form, regform=registration_form)
+    return render_template('index.html', logform=logform, regform=regform)
 
 
 @app.route('/logout')
@@ -120,15 +119,16 @@ def logout():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, alt_id=generate_password_hash(form.username.data, 'sha256'),
-                    email=form.email.data)
-        user.set_password(form.password.data)
+    regform = RegistrationForm()
+    logform = LoginForm()
+    if regform.validate_on_submit():
+        user = User(username=regform.username.data, alt_id=generate_password_hash(regform.username.data, 'sha256'),
+                    email=regform.email.data)
+        user.set_password(regform.password.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('index.html', logform=login_form, regform=registration_form)
+    return render_template('index.html', logform=logform, regform=regform)
 
 
 @app.route('/osulogin', methods=['GET', 'POST'])

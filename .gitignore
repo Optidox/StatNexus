@@ -130,4 +130,4 @@ dmypy.json
 
 app.db
 migrations/
-.idea
+**/certs/**
