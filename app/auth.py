@@ -6,7 +6,7 @@ import six
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import time
-from flask import session, g
+from flask import session, g, redirect, url_for
 from flask_login import current_user
 from app.models import Osu, Bungie
 from app import app, db
@@ -25,15 +25,23 @@ def _refresh_token(api):
                     'client_secret': os.environ.get('OSU_CLIENT_SECRET'),
                     'refresh_token': data.refresh_token }
         response = requests.post('https://osu.ppy.sh/oauth/token', data=payload)
+        token_json = response.json()
+
     elif api == 'bungie':
         data = Bungie.query.get(current_user.id)
         payload = { 'grant_type': 'refresh_token',
                     'refresh_token': data.refresh_token }
         response = requests.post('https://www.bungie.net/platform/app/oauth/token/', data=payload, headers=_make_auth_headers())
-
-    token_json = response.json()
-    data.access_token = token_json['access_token']
-    data.expiration_time = int(token_json['expires_in']) + int(time.time())
+        token_json = response.json()
+        
+    if 'access_token' in token_json:
+        data.access_token = token_json['access_token']
+        data.expiration_time = int(token_json['expires_in']) + int(time.time())
+    else:
+        db.session.delete(data)
+        db.session.commit()
+        return redirect(url_for('destiny'))
+            
     db.session.commit()
 
 def make_auth_url(api):

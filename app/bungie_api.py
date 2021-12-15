@@ -3,6 +3,7 @@ from app.auth import check_token
 from app.models import Bungie
 from app.helpers import add_commas
 from flask_login import current_user
+from flask import redirect, url_for
 import os
 import requests
 import json
@@ -18,7 +19,10 @@ def _get_headers():
 
 def _get_access_token():
     check_token('bungie')
-    return Bungie.query.get(current_user.id).access_token
+    user = Bungie.query.get(current_user.id)
+    if user is not None:
+        return user.access_token
+    return redirect(url_for('destiny'))
 
 def _get_membership_data():
     response = requests.get('https://www.bungie.net/Platform/User/GetMembershipsForCurrentUser/', 
