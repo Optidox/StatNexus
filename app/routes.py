@@ -116,7 +116,6 @@ def login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('profile')
-        print(next_page)
         session.permanent = True
         return redirect(next_page)
     return render_template('index.html', logform=logform, regform=regform)
@@ -141,11 +140,6 @@ def register():
         user.set_password(regform.password.data)
         db.session.add(user)
         db.session.commit()
-        try:
-            response = requests.get('https://statnexusmailer.herokuapp.com/?email=' + regform.email.data + '&subject=StatNexus%20Registration&text=Thank%20you%20for%20signing%20up%20for%20StatNexus%21')
-        except Exception as e:
-            pass
-        return redirect(url_for('index'))
     return render_template('index.html', logform=logform, regform=regform)
 
 
