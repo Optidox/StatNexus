@@ -12,10 +12,15 @@ from app.models import Osu, Bungie
 from app import app, db
 
 
-def _make_auth_headers():
-    auth_header = base64.b64encode(six.text_type(os.environ.get('BUNGIE_CLIENT_ID')
-                                                 + ':' + os.environ.get('BUNGIE_CLIENT_SECRET')).encode('ascii'))
+def _make_auth_headers(api):
+    if api == 'bungie':
+        auth_header = base64.b64encode(six.text_type(os.environ.get('BUNGIE_CLIENT_ID')
+                                                    + ':' + os.environ.get('BUNGIE_CLIENT_SECRET')).encode('ascii'))
+    if api == 'osu':
+        auth_header = base64.b64encode(six.text_type(os.environ.get('OSU_CLIENT_ID')
+                                                     + ':' + os.environ.get('OSU_CLIENT_SECRET')).encode('ascii'))
     return {'Authorization': 'Basic %s' % auth_header.decode('ascii')}
+
 
 def _refresh_token(api):
     if api == 'osu':
@@ -44,6 +49,7 @@ def _refresh_token(api):
             
     db.session.commit()
 
+
 def make_auth_url(api):
     state = str(uuid4())
     session['state_hash'] = generate_password_hash(state, 'sha256')
@@ -67,11 +73,13 @@ def make_auth_url(api):
         url = 'https://www.bungie.net/en/OAuth/Authorize?' + urlencode(params)
     return url
 
+
 # if multiple requests ever use this synchronously it will break
 def check_state(state):
     state_hash = session['state_hash']
     session.pop('state_hash')
     return check_password_hash(state_hash, state)
+
 
 def get_tokens(code, api):
     if api == 'osu':
@@ -95,6 +103,7 @@ def get_tokens(code, api):
     return {'access_token': token_json['access_token'],
             'refresh_token': token_json['refresh_token'],
             'expires_in': token_json['expires_in']}
+
 
 def check_token(api):
     if api == 'osu':
